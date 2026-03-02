@@ -229,6 +229,141 @@
     }
 }
 
+/* Carousel Antigravity Peel & Slide Transitions */
+.word-enter {
+    animation: peelIn 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: calc(var(--word-index) * 0.05s + 0.5s);
+    transform-origin: center bottom;
+    backface-visibility: hidden;
+    opacity: 0;
+}
+
+.word-exit {
+    animation: peelOut 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: calc(var(--word-index) * 0.05s);
+    transform-origin: center bottom;
+    backface-visibility: hidden;
+}
+
+.description-enter {
+    animation: peelIn 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: 0.8s;
+    transform-origin: center bottom;
+    backface-visibility: hidden;
+    opacity: 0;
+}
+
+.description-exit {
+    animation: peelOut 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation-delay: 0.2s;
+    transform-origin: center bottom;
+    backface-visibility: hidden;
+}
+
+@keyframes peelIn {
+    0% {
+        transform: perspective(1200px) rotateX(-90deg) translateY(20px) translateZ(10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: perspective(1200px) rotateX(0deg) translateY(0) translateZ(0);
+        opacity: 1;
+    }
+}
+
+@keyframes peelOut {
+    0% {
+        transform: perspective(1200px) rotateX(0deg) translateY(0) translateZ(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: perspective(1200px) rotateX(-120deg) translateY(-40px) translateZ(-60px);
+        opacity: 0;
+    }
+}
+
+.img-slide-enter {
+    animation: imgSlideIn 1s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+    opacity: 0;
+}
+
+.img-slide-exit {
+    animation: imgSlideOut 1s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+}
+
+@keyframes imgSlideIn {
+    0% {
+        transform: translateX(20%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes imgSlideOut {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-20%);
+        opacity: 0;
+    }
+}
+
+.fade-enter {
+    animation: simpleFadeIn 0.8s ease forwards;
+    animation-delay: 0.8s;
+    opacity: 0;
+}
+
+.fade-exit {
+    animation: simpleFadeOut 0.5s ease forwards;
+}
+
+@keyframes simpleFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes simpleFadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Base fade fallback just in case */
+.fade-transition {
+    animation: slideFadeUp 0.6s ease-out forwards;
+}
+
+@keyframes slideFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Stats Container (Bottom of Hero) */
 .hero-content {
     display: grid;
@@ -577,47 +712,64 @@
     justify-content: center;
 }
 
-/* Cards */
+/* Cards - the glass container itself */
 .mock-device-card {
     position: absolute;
-    width: 290px;
-    background: #111424;
-    /* Darker card background based on ref */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 340px;
+    padding: 10px;
+    background: rgba(18, 14, 35, 0.45);
+    /* Low opacity so backdrop blur shows through */
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
     border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+    overflow: visible;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 .device-back {
-    left: 8%;
+    left: 4%;
     top: 50%;
     transform: translateY(-50%) rotate(-8deg);
     z-index: 1;
     opacity: 0.95;
+    /* Soft teal glassmorphic border and intense glowing shadow */
+    border: 2px solid rgba(16, 185, 129, 0.4);
+    box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.95),
+        -20px 0 60px rgba(16, 185, 129, 0.15),
+        inset 0 0 20px rgba(16, 185, 129, 0.1);
 }
 
 .device-front {
-    left: 28%;
+    left: 26%;
     top: 12%;
     transform: translateY(-50%) rotate(8deg);
     z-index: 2;
     animation: float 6s ease-in-out infinite;
+    /* Soft purple glassmorphic border and intense glowing shadow */
+    border: 2px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 0 40px 80px -10px rgba(0, 0, 0, 0.95),
+        20px 20px 60px rgba(168, 85, 247, 0.2),
+        inset 0 0 20px rgba(168, 85, 247, 0.15);
 }
 
-/* Image Area */
+/* Image holder - rounded block sitting inside the padded glass card */
 .dc-img-holder {
     width: 100%;
-    height: 160px;
+    height: 180px;
     overflow: hidden;
     position: relative;
+    border-radius: 16px;
+    flex-shrink: 0;
 }
 
 .dc-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     display: block;
 }
 
@@ -640,47 +792,53 @@
 /* Check Badge */
 .dc-check-badge {
     position: absolute;
-    top: 140px;
-    /* Centered exactly on the image/body border */
+    top: 168px;
+    /* image height (180) + card padding (10) - badge half height (18) */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 5;
-    background: #312e81;
-    /* Dark purple from ref */
+    z-index: 10;
     width: 36px;
     height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 4px solid #111424;
-    /* Matches card inner bg */
+    border: 3px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
 }
 
-/* Card Body */
+.dc-check-badge.front-badge {
+    background: #2d2060;
+}
+
+.dc-check-badge.back-badge {
+    background: #0e3832;
+}
+
+/* Card Body - distinct dark rounded panel inside the glass card */
 .dc-body {
-    padding: 1.8rem 1.5rem 1.5rem;
-    /* Extra top padding for check badge */
-    background: #111424;
-    position: relative;
+    padding: 1.5rem 1rem 1rem;
     text-align: center;
-    /* All text is centered in ref */
+    background: #0f0d1a;
+    /* Solid opaque dark */
+    border-radius: 16px;
+    margin-top: 8px;
+    position: relative;
 }
 
 .dc-tag {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: #fff;
-    margin-bottom: 0.2rem;
+    color: #f8fafc;
+    margin-bottom: 0.35rem;
     letter-spacing: -0.01em;
 }
 
 .dc-sub {
-    font-size: 0.8rem;
-    color: #94a3b8;
-    /* purple tint matches ref */
-    color: #a5b4fc;
-    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: #c084fc;
+    /* Vivid purple tint matches ref */
+    margin-bottom: 1.2rem;
 }
 
 /* Meta Row */
