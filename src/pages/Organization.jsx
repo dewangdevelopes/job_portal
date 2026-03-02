@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
+import { ROUTES } from "../utils/constants";
 import { Search, Building, BookOpen, User, ArrowRight } from "lucide-react";
 
 const Organization = () => {
@@ -224,7 +225,13 @@ const Organization = () => {
                       {job.deadline}
                     </span>
                   </div>
-                  <button className="bg-slate-900 text-white text-[13px] font-bold px-4 py-2 rounded-full flex items-center gap-1.5 hover:bg-slate-800 shadow-md active:scale-95 transition-all cursor-pointer">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(ROUTES.APPLICATION);
+                    }}
+                    className="bg-slate-900 text-white text-[13px] font-bold px-4 py-2 rounded-full flex items-center gap-1.5 hover:bg-slate-800 shadow-md active:scale-95 transition-all cursor-pointer"
+                  >
                     Apply{" "}
                     <ArrowRight
                       size={14}

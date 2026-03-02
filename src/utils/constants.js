@@ -7,4 +7,5 @@ export const ROUTES = {
   OLIVE_LANDING: "/home/olive",
   APPLICANT: "/applicant",
   ORGANIZATION: "/organization/:id",
+  APPLICATION: "/apply",
 };

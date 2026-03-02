@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
+import { ROUTES } from "../utils/constants";
 import illutionSvg from "../assets/illution.svg";
 import illutionSvg1 from "../assets/illution1.svg";
 import {
@@ -137,9 +138,9 @@ const ApplicantDashboard = () => {
 
                     <div className="px-6 md:px-12 pb-8 pt-2 w-full max-w-4xl mx-auto">
                       <div className="flex items-center justify-between w-full mt-4 md:mt-8 relative">
-                        <div className="absolute top-2.5 left-0 w-full h-1 md:h-1.5 bg-slate-100 -translate-y-1/2 z-0 rounded-full"></div>
+                        <div className="absolute top-[21px] md:top-[26px] left-0 w-full h-[2px] bg-slate-100 -translate-y-1/2 z-0 rounded-full"></div>
                         <div
-                          className="absolute top-2.5 left-0 h-1 md:h-1.5 bg-green-500 -translate-y-1/2 z-0 rounded-full transition-all duration-1000 ease-out"
+                          className="absolute top-[21px] md:top-[26px] left-0 h-[2px] bg-green-500 -translate-y-1/2 z-0 rounded-full transition-all duration-1000 ease-out"
                           style={{
                             width: `${(app.currentStep / (app.steps.length - 1)) * 100}%`,
                           }}
@@ -152,10 +153,10 @@ const ApplicantDashboard = () => {
                           return (
                             <div
                               key={step}
-                              className="relative z-10 flex flex-col items-center gap-2.5 md:gap-3 bg-white px-1 md:px-2"
+                              className="relative z-10 flex flex-col items-center gap-2.5 md:gap-3 px-1 md:px-2"
                             >
                               <div
-                                className={`w-4 h-4 md:w-5 md:h-5 rounded-full border-[2.5px] md:border-4 ${isCompleted ? "bg-green-500 border-green-500" : isCurrent ? "bg-white border-green-500" : "bg-white border-slate-200"} flex items-center justify-center shadow-sm transition-colors duration-300`}
+                                className={`w-4 h-4 md:w-5 md:h-5 rounded-full border-[2.5px] md:border-4 ${isCompleted ? "bg-green-500 border-green-500" : isCurrent ? "bg-white border-green-500" : "bg-white border-slate-200"} flex items-center justify-center shadow-sm transition-colors duration-300 bg-white`}
                               >
                                 {isCompleted && (
                                   <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full"></div>
@@ -350,7 +351,11 @@ const ApplicantDashboard = () => {
                           </span>
                         </div>
                         <button
-                          className={`bg-slate-900 text-white text-[11px] md:text-[13px] font-bold px-3 py-1.5 md:px-4 md:py-2 rounded-full flex items-center gap-1 md:gap-1.5 ${job.btnHover} shadow-sm active:scale-95 transition-all duration-300 cursor-pointer`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(ROUTES.APPLICATION);
+                          }}
+                          className="bg-slate-900 hover:bg-slate-800 text-white text-[11px] md:text-[13px] font-bold px-3 py-1.5 md:px-4 md:py-2 rounded-full flex items-center gap-1 md:gap-1.5 shadow-sm active:scale-95 transition-all duration-300 cursor-pointer"
                         >
                           Apply{" "}
                           <ArrowRight
