@@ -2,15 +2,83 @@ import React from 'react';
 import { Shield, MapPin, Monitor, GraduationCap, ArrowRight, Stars, Palette, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const cardHoverStyles = `
+  .opening-card {
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.35s ease;
+    overflow: hidden;
+  }
+  .opening-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: linear-gradient(180deg, #3b82f6, #6366f1);
+    transform: scaleY(0);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: bottom;
+  }
+  .opening-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    border-color: #e0e7ff;
+  }
+  .opening-card:hover::before {
+    transform: scaleY(1);
+  }
+  .opening-card .card-icon {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 0.3s ease,
+                color 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+  .opening-card:hover .card-icon {
+    transform: rotate(-8deg) scale(1.15);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  }
+  .opening-card .card-category {
+    transition: color 0.3s ease, letter-spacing 0.4s ease;
+  }
+  .opening-card:hover .card-category {
+    color: #4f46e5;
+    letter-spacing: 0.1em;
+  }
+  .opening-card .card-title {
+    transition: color 0.3s ease;
+  }
+  .opening-card:hover .card-title {
+    color: #1e40af;
+  }
+  .opening-card .card-subtitle {
+    transition: color 0.3s ease;
+  }
+  .opening-card:hover .card-subtitle {
+    color: #64748b;
+  }
+  .opening-card .card-footer {
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .opening-card:hover .card-footer {
+    border-color: #e0e7ff;
+    color: #6366f1;
+  }
+`;
+
 const OliveLanding = () => {
   return (
     <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-900">
+      <style>{cardHoverStyles}</style>
 
       {/* 1. Header & Hero Wrap for unified gradient */}
       <div className="bg-gradient-to-t from-[#fef5d6] via-[#fef9df] to-[#fffdf5] relative pb-24">
 
         {/* Navigation */}
-        <nav className="flex items-center justify-between px-8 py-8 max-w-[1400px] mx-auto bg-transparent relative z-10">
+        <nav className="flex items-center justify-between px-8 py-8  mx-auto bg-transparent relative z-10">
           <div className="flex items-center gap-2 font-bold text-lg">
             <Shield className="text-slate-900" size={24} />
             <span>Portal Name</span>
@@ -60,7 +128,7 @@ const OliveLanding = () => {
           {/* Right Image Card */}
           <div className="relative justify-self-center lg:justify-self-end w-full max-w-[540px]">
             <div className="rounded-[32px] overflow-hidden aspect-[4.5/5] shadow-2xl relative border-[6px] border-white/40">
-              <img src="/olive_school_building.png" alt="Olive School Building" className="w-full h-full object-cover" />
+              <img src="/olive_school_building.jpg" alt="Olive School Building" className="w-full h-full object-cover" />
 
               {/* Floating Location Card */}
               <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-3xl shadow-xl flex gap-4 items-start border border-white/60">
@@ -88,32 +156,32 @@ const OliveLanding = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
 
             {/* Card 1 */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group flex flex-col justify-between h-[220px]">
-              <div className="w-8 h-8 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+            <div className="opening-card bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex flex-col justify-between h-[220px]">
+              <div className="card-icon w-8 h-8 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4">
                 <Monitor size={16} />
               </div>
               <div>
-                <div className="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Academic Faculty</div>
-                <h3 className="font-semibold text-slate-900 text-lg leading-tight mb-1">Assistant Professor</h3>
-                <p className="text-sm text-slate-500">Computer Science</p>
+                <div className="card-category text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Academic Faculty</div>
+                <h3 className="card-title font-semibold text-slate-900 text-lg leading-tight mb-1">Assistant Professor</h3>
+                <p className="card-subtitle text-sm text-slate-500">Computer Science</p>
               </div>
-              <div className="flex items-center gap-3 text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50">
+              <div className="card-footer flex items-center gap-3 text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50">
                 <span className="flex items-center gap-1"><Briefcase size={12} /> Full-time</span>
                 <span className="flex items-center gap-1"><MapPin size={12} /> Bengaluru</span>
               </div>
             </div>
 
             {/* Card 2 */}
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group flex flex-col justify-between h-[220px]">
-              <div className="w-8 h-8 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4 group-hover:bg-purple-50 group-hover:text-purple-600 transition-colors">
+            <div className="opening-card bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex flex-col justify-between h-[220px]">
+              <div className="card-icon w-8 h-8 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4">
                 <Stars size={16} />
               </div>
               <div>
-                <div className="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Corporate Relations</div>
-                <h3 className="font-semibold text-slate-900 text-lg leading-tight mb-1">Placement Officer</h3>
-                <p className="text-sm text-slate-500">Strategic Outreach</p>
+                <div className="card-category text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Corporate Relations</div>
+                <h3 className="card-title font-semibold text-slate-900 text-lg leading-tight mb-1">Placement Officer</h3>
+                <p className="card-subtitle text-sm text-slate-500">Strategic Outreach</p>
               </div>
-              <div className="flex items-center gap-3 text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50">
+              <div className="card-footer flex items-center gap-3 text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50">
                 <span className="flex items-center gap-1"><Briefcase size={12} /> Full-time</span>
                 <span className="flex items-center gap-1"><MapPin size={12} /> Bengaluru</span>
               </div>
@@ -121,16 +189,16 @@ const OliveLanding = () => {
 
             {/* Cards 3-10 (Lab Technicians) */}
             {[...Array(8)].map((_, index) => (
-              <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group flex flex-col justify-between h-[220px]">
-                <div className="w-8 h-8 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4 group-hover:bg-orange-50 group-hover:text-orange-600 transition-colors">
+              <div key={index} className="opening-card bg-white p-6 rounded-2xl shadow-sm border border-slate-100 cursor-pointer flex flex-col justify-between h-[220px]">
+                <div className="card-icon w-8 h-8 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600 mb-4">
                   <Palette size={16} />
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Media & Arts</div>
-                  <h3 className="font-semibold text-slate-900 text-lg leading-tight mb-1">Lab Technician</h3>
-                  <p className="text-sm text-slate-500">Media & Communications</p>
+                  <div className="card-category text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-1">Media & Arts</div>
+                  <h3 className="card-title font-semibold text-slate-900 text-lg leading-tight mb-1">Lab Technician</h3>
+                  <p className="card-subtitle text-sm text-slate-500">Media & Communications</p>
                 </div>
-                <div className="flex items-center gap-3 text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50">
+                <div className="card-footer flex items-center gap-3 text-[11px] text-slate-400 mt-6 pt-4 border-t border-slate-50">
                   <span className="flex items-center gap-1"><Briefcase size={12} /> Full-time</span>
                   <span className="flex items-center gap-1"><MapPin size={12} /> Bengaluru</span>
                 </div>
@@ -182,7 +250,7 @@ const OliveLanding = () => {
 
       {/* 5. Minimal Footer */}
       <footer className="px-8 py-8 border-t border-slate-200 bg-white">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className=" mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 font-bold text-sm text-slate-900">
             <Shield className="text-slate-900" size={16} />
             <span>Portal Name</span>

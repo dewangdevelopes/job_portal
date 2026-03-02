@@ -77,7 +77,7 @@ const Home = () => {
             </div>
 
             {/* Floating Card 1 (Top Left) */}
-            <div className="absolute -top-6 -left-12 md:-left-20 bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex flex-col gap-4 w-[260px]">
+            <div className="absolute -top-6 -left-12 md:-left-20 bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex flex-col gap-4 w-[260px] animate-[float-hero-element_6s_ease-in-out_infinite]">
               <div className="flex items-center justify-between">
                 <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white">
                   <Sparkles size={18} />
@@ -95,7 +95,7 @@ const Home = () => {
             </div>
 
             {/* Floating Card 2 (Right Center) */}
-            <div className="absolute top-1/2 -right-8 md:-right-16 translate-y-[-20%] bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex flex-col gap-4 w-[280px]">
+            <div className="absolute top-1/2 -right-8 md:-right-16 translate-y-[-20%] bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex flex-col gap-4 w-[280px] animate-[float-hero-element_6s_ease-in-out_2s_infinite]">
               <div className="flex items-center justify-between">
                 <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center text-white shadow-sm">
                   <Building size={18} />
@@ -162,7 +162,7 @@ const Home = () => {
       <section ref={section2Ref} className="dark-section-1 w-full relative">
         <div className="ds1-content">
           <div className="ds1-text">
-            <h2>Careers.<br /><span className="serif-outline">Reimagined.</span></h2>
+            <h2>Careers,<br /><span className="serif-italic glass-text">Reimagined.</span></h2>
             <p>A refined hiring platform connecting institutions and professionals without friction.</p>
             <button className="btn-outline-white">Browse Positions</button>
           </div>
@@ -171,23 +171,34 @@ const Home = () => {
             <div className="mock-device-wrapper">
               {/* Back Card */}
               <div className="mock-device-card device-back">
-                <div className="dc-img-placeholder pattern-1"></div>
+                <div className="dc-img-holder">
+                  <img src="/olive_school_building.jpg" alt="Interior" className="dc-img" />
+                </div>
                 <div className="dc-body">
                   <div className="dc-tag">English Teacher</div>
                   <div className="dc-sub">Olive Int. School</div>
-                  <div className="dc-skeleton"></div>
-                  <div className="dc-skeleton short"></div>
+                  <div className="dc-meta">
+                    <span className="dc-meta-item">◉ Full-time</span>
+                    <span className="dc-meta-item">📍 Doha</span>
+                  </div>
+                  <button className="dc-btn-green">Apply Now</button>
                 </div>
               </div>
               {/* Front Card */}
               <div className="mock-device-card device-front">
-                <div className="dc-badge"><Check size={14} color="#fff" /></div>
-                <div className="dc-img-placeholder pattern-2"></div>
+                <div className="dc-hybrid-badge">Hybrid</div>
+                <div className="dc-check-badge"><Check size={14} color="#fff" /></div>
+                <div className="dc-img-holder">
+                  <img src="/olive_school_pano.png" alt="Workspace" className="dc-img" />
+                </div>
                 <div className="dc-body">
                   <div className="dc-tag">Graphic Design Intern</div>
-                  <div className="dc-sub">Royal Design College</div>
-                  <div className="dc-skeleton"></div>
-                  <button className="dc-btn">View Details</button>
+                  <div className="dc-sub">Crista Jayanti College</div>
+                  <div className="dc-meta">
+                    <span className="dc-meta-item">◉ Internship</span>
+                    <span className="dc-meta-item">💰 Stipend</span>
+                  </div>
+                  <button className="dc-btn-purple">View Details</button>
                 </div>
               </div>
             </div>
@@ -230,7 +241,7 @@ const Home = () => {
         {/* Dark Section 2 (CTA) */}
         <section className="cta-section relative">
           <div className="cta-content">
-            <h2>Your Next Role<br />Starts <span className="serif-italic-white">Here.</span></h2>
+            <h2>Your Next Role<br />Starts <span className="serif-italic">Here.</span></h2>
             <p>Join the most vibrant community of professionals and creators today.</p>
             <div className="cta-buttons">
               <button className="btn-get-started-large">Get Started Now</button>
@@ -241,7 +252,7 @@ const Home = () => {
 
         {/* Footer */}
         <footer className="footer-section">
-          <div className="footer-content">
+          <div className="footer-content border-t border-gray-700">
             <div className="footer-logo">
               <Shield className="logo-icon-small" size={18} />
               <span>Portal Name</span>

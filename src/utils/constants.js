@@ -4,5 +4,5 @@ export const API_BASE_URL = "http://localhost:3000/api";
 export const ROUTES = {
   HOME: "/",
   ABOUT: "/about",
-  OLIVE_LANDING: "/home/olive",
+  OLIVE_LANDING: "/olive",
 };
