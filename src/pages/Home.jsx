@@ -1,16 +1,28 @@
-import React, { useRef } from 'react';
-import { Shield, Sparkles, Building, ArrowRight, Check, CheckCircle2 } from 'lucide-react';
-import { useSmoothScrollSnap } from '../hooks/useSmoothScrollSnap';
-import './Home.css';
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Shield,
+  Sparkles,
+  Building,
+  ArrowRight,
+  Check,
+  CheckCircle2,
+} from "lucide-react";
+import { useSmoothScrollSnap } from "../hooks/useSmoothScrollSnap";
+import "./Home.css";
 
 const Home = () => {
+  const navigate = useNavigate();
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const section3Ref = useRef(null);
   const section4Ref = useRef(null);
 
   // Hook controls scrolling physics between these refs with a rich 1000ms animation
-  useSmoothScrollSnap([section1Ref, section2Ref, section3Ref, section4Ref], 1000);
+  useSmoothScrollSnap(
+    [section1Ref, section2Ref, section3Ref, section4Ref],
+    1000,
+  );
 
   return (
     <div className="home-page">
@@ -22,14 +34,41 @@ const Home = () => {
             <span>Portal Name</span>
           </div>
           <div className="hidden md:flex gap-8 text-[13px] font-medium text-black">
-            <a href="#" className="text-black hover:text-slate-900 transition-colors">Product</a>
-            <a href="#" className="text-black hover:text-slate-900 transition-colors">Solutions</a>
-            <a href="#" className="text-black hover:text-slate-900 transition-colors">Pricing</a>
-            <a href="#" className="text-black hover:text-slate-900 transition-colors">Blog</a>
+            <a
+              href="#"
+              className="text-black hover:text-slate-900 transition-colors"
+            >
+              Product
+            </a>
+            <a
+              href="#"
+              className="text-black hover:text-slate-900 transition-colors"
+            >
+              Solutions
+            </a>
+            <a
+              href="#"
+              className="text-black hover:text-slate-900 transition-colors"
+            >
+              Pricing
+            </a>
+            <a
+              href="#"
+              className="text-black hover:text-slate-900 transition-colors"
+            >
+              Blog
+            </a>
           </div>
           <div className="flex items-center gap-4">
-            <button className="text-[13px] font-medium text-black hover:text-slate-800 transition-colors">Login</button>
-            <button className="px-5 py-2 rounded-full bg-slate-100 text-[13px] font-semibold text-black hover:bg-slate-200 transition-colors">Get Started</button>
+            <button
+              onClick={() => navigate("/applicant")}
+              className="text-[13px] font-medium text-black hover:text-slate-800 transition-colors"
+            >
+              Login
+            </button>
+            <button className="px-5 py-2 rounded-full bg-slate-100 text-[13px] font-semibold text-black hover:bg-slate-200 transition-colors">
+              Get Started
+            </button>
           </div>
         </div>
       </nav>
@@ -43,12 +82,26 @@ const Home = () => {
 
           <div className="flex flex-col items-start lg:pr-12 md:pl-12">
             <div className="hero-text-container">
-              <h1 className="text-[4rem] md:text-[5rem] text-[#1e293b] leading-[1.05] mb-6 tracking-tight" style={{ fontFamily: '"Playfair Display", serif', fontWeight: 400 }}>
+              <h1
+                className="text-[4rem] md:text-[5rem] text-[#1e293b] leading-[1.05] mb-6 tracking-tight"
+                style={{
+                  fontFamily: '"Playfair Display", serif',
+                  fontWeight: 400,
+                }}
+              >
                 The New <br /> Infrastructure for <br />
-                <span className="text-blue-500 italic" style={{ fontWeight: 500 }}>Modern</span> Hiring
+                <span
+                  className="text-blue-500 italic"
+                  style={{ fontWeight: 500 }}
+                >
+                  Modern
+                </span>{" "}
+                Hiring
               </h1>
               <p className="text-slate-500 text-[1.05rem] md:text-[1.15rem] font-light leading-relaxed mb-10 max-w-lg tracking-wide">
-                A professional recruitment platform built for scalable organizations across all sectors. Streamline sourcing, vetting, and onboarding in one unified workspace.
+                A professional recruitment platform built for scalable
+                organizations across all sectors. Streamline sourcing, vetting,
+                and onboarding in one unified workspace.
               </p>
               <div className="flex flex-wrap gap-4 mb-16">
                 <button className="px-8 py-3.5 rounded-full bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors flex items-center gap-2 shadow-lg shadow-blue-500/20">
@@ -60,20 +113,34 @@ const Home = () => {
               </div>
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-3">
-                  <img src="/avatar_1.png" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm bg-blue-500" alt="User 1" />
-                  <img src="/avatar_2.png" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm bg-orange-400" alt="User 2" />
+                  <img
+                    src="/avatar_1.png"
+                    className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm bg-blue-500"
+                    alt="User 1"
+                  />
+                  <img
+                    src="/avatar_2.png"
+                    className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm bg-orange-400"
+                    alt="User 2"
+                  />
                   <div className="w-10 h-10 rounded-full border-2 border-white bg-slate-800 flex items-center justify-center text-white text-xs font-medium shadow-sm z-10">
                     +2k
                   </div>
                 </div>
-                <span className="text-sm text-slate-500">People hired this month.</span>
+                <span className="text-sm text-slate-500">
+                  People hired this month.
+                </span>
               </div>
             </div>
           </div>
 
           <div className="relative justify-self-center lg:justify-self-end w-full max-w-[550px] mt-12 lg:mt-0">
             <div className="rounded-3xl overflow-hidden shadow-2xl relative aspect-[4/5] bg-slate-100">
-              <img src="/hero_image.png" alt="Professional Woman with Laptop" className="w-full h-full object-cover rounded-3xl" />
+              <img
+                src="/hero_image.png"
+                alt="Professional Woman with Laptop"
+                className="w-full h-full object-cover rounded-3xl"
+              />
             </div>
 
             {/* Floating Card 1 (Top Left) */}
@@ -82,15 +149,25 @@ const Home = () => {
                 <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white">
                   <Sparkles size={18} />
                 </div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1 border border-slate-200/50 bg-white/50 rounded-md">REMOTE</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1 border border-slate-200/50 bg-white/50 rounded-md">
+                  REMOTE
+                </span>
               </div>
               <div>
-                <h4 className="font-bold text-slate-900 text-[15px] mb-0.5">Senior Product Designer</h4>
-                <p className="text-xs text-slate-600 font-medium">Fintech Solutions Inc.</p>
+                <h4 className="font-bold text-slate-900 text-[15px] mb-0.5">
+                  Senior Product Designer
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Fintech Solutions Inc.
+                </p>
               </div>
               <div className="flex items-center justify-between mt-2">
-                <span className="text-[11px] text-slate-500 flex items-center gap-1">⌚ 2 days ago</span>
-                <span className="text-[11px] font-bold text-slate-900">₹140k - ₹180k</span>
+                <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                  ⌚ 2 days ago
+                </span>
+                <span className="text-[11px] font-bold text-slate-900">
+                  ₹140k - ₹180k
+                </span>
               </div>
             </div>
 
@@ -100,33 +177,54 @@ const Home = () => {
                 <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center text-white shadow-sm">
                   <Building size={18} />
                 </div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">HYBRID</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  HYBRID
+                </span>
               </div>
               <div>
-                <h4 className="font-bold text-slate-900 text-[15px] mb-0.5">Marketing Lead</h4>
-                <p className="text-xs text-slate-600 font-medium">Global Ventures</p>
+                <h4 className="font-bold text-slate-900 text-[15px] mb-0.5">
+                  Marketing Lead
+                </h4>
+                <p className="text-xs text-slate-600 font-medium">
+                  Global Ventures
+                </p>
               </div>
               <div className="flex items-center justify-between mt-4">
-                <span className="text-[11px] text-slate-500 flex items-center gap-1">⌚ 5 hours ago</span>
-                <span className="text-[11px] font-bold text-slate-900 px-3 py-1 bg-slate-100/80 rounded-full">Competitive</span>
+                <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                  ⌚ 5 hours ago
+                </span>
+                <span className="text-[11px] font-bold text-slate-900 px-3 py-1 bg-slate-100/80 rounded-full">
+                  Competitive
+                </span>
               </div>
             </div>
 
             {/* Floating Card 3 (Bottom Center) */}
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] bg-white/70 backdrop-blur-xl p-3 pr-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex items-center justify-between">
               <div className="flex -space-x-2">
-                <img src="/avatar_1.png" className="w-8 h-8 rounded-full border-2 border-white object-cover bg-blue-500" alt="User 1" />
-                <img src="/avatar_2.png" className="w-8 h-8 rounded-full border-2 border-white object-cover bg-orange-400" alt="User 2" />
+                <img
+                  src="/avatar_1.png"
+                  className="w-8 h-8 rounded-full border-2 border-white object-cover bg-blue-500"
+                  alt="User 1"
+                />
+                <img
+                  src="/avatar_2.png"
+                  className="w-8 h-8 rounded-full border-2 border-white object-cover bg-orange-400"
+                  alt="User 2"
+                />
                 <div className="w-8 h-8 rounded-full border-2 border-white bg-slate-800 flex items-center justify-center text-white text-[10px] font-medium z-10">
                   +4k
                 </div>
               </div>
               <div className="text-right">
-                <h4 className="text-[11px] text-slate-500 font-medium">Candidates hired</h4>
-                <p className="text-xs font-bold text-slate-900">+12% this week</p>
+                <h4 className="text-[11px] text-slate-500 font-medium">
+                  Candidates hired
+                </h4>
+                <p className="text-xs font-bold text-slate-900">
+                  +12% this week
+                </p>
               </div>
             </div>
-
           </div>
         </header>
 
@@ -155,15 +253,21 @@ const Home = () => {
             </div>
           </div>
         </section>
-
       </div>
 
       {/* Dark Section 1 */}
       <section ref={section2Ref} className="dark-section-1 w-full relative">
         <div className="ds1-content">
           <div className="ds1-text">
-            <h2>Careers.<br /><span className="serif-outline">Reimagined.</span></h2>
-            <p>A refined hiring platform connecting institutions and professionals without friction.</p>
+            <h2>
+              Careers.
+              <br />
+              <span className="serif-outline">Reimagined.</span>
+            </h2>
+            <p>
+              A refined hiring platform connecting institutions and
+              professionals without friction.
+            </p>
             <button className="btn-outline-white">Browse Positions</button>
           </div>
 
@@ -181,7 +285,9 @@ const Home = () => {
               </div>
               {/* Front Card */}
               <div className="mock-device-card device-front">
-                <div className="dc-badge"><Check size={14} color="#fff" /></div>
+                <div className="dc-badge">
+                  <Check size={14} color="#fff" />
+                </div>
                 <div className="dc-img-placeholder pattern-2"></div>
                 <div className="dc-body">
                   <div className="dc-tag">Graphic Design Intern</div>
@@ -198,29 +304,52 @@ const Home = () => {
       {/* Features Section */}
       <section ref={section3Ref} className="features-section w-full relative">
         <div className="fs-header">
-          <span className="fs-label" style={{ color: '#2563eb' }}>Enterprise Solutions</span>
+          <span className="fs-label" style={{ color: "#2563eb" }}>
+            Enterprise Solutions
+          </span>
           <h2>Scale Your Workforce with Precision</h2>
-          <p>Designed for efficiency and clarity. We stripped away the clutter to focus on what matters: finding the right talent for the right role.</p>
+          <p>
+            Designed for efficiency and clarity. We stripped away the clutter to
+            focus on what matters: finding the right talent for the right role.
+          </p>
         </div>
 
         <div className="fs-grid">
           <div className="fs-card">
             <div className="fs-card-line blue-line"></div>
             <h3>Unified Talent Pipeline</h3>
-            <p>Consolidate candidate sources into a single, cohesive view. Manage active pools, referrals, and agency submissions in one centralized infrastructure.</p>
-            <a href="#" className="fs-link">Explore integration <ArrowRight size={14} /></a>
+            <p>
+              Consolidate candidate sources into a single, cohesive view. Manage
+              active pools, referrals, and agency submissions in one centralized
+              infrastructure.
+            </p>
+            <a href="#" className="fs-link">
+              Explore integration <ArrowRight size={14} />
+            </a>
           </div>
           <div className="fs-card">
             <div className="fs-card-line purple-line"></div>
             <h3>Automated Workflows</h3>
-            <p>Eliminate repetitive manual tasks. Trigger stage advancements, communications, and assessments automatically based on custom logic.</p>
-            <a href="#" className="fs-link">View automation <ArrowRight size={14} /></a>
+            <p>
+              Eliminate repetitive manual tasks. Trigger stage advancements,
+              communications, and assessments automatically based on custom
+              logic.
+            </p>
+            <a href="#" className="fs-link">
+              View automation <ArrowRight size={14} />
+            </a>
           </div>
           <div className="fs-card">
             <div className="fs-card-line green-line"></div>
             <h3>Smart Candidate Matching</h3>
-            <p>Leverage intelligent filtering to surface the best fits instantly. Our engine analyzes skills, experience, and cultural fit to rank applicants.</p>
-            <a href="#" className="fs-link">See how it works <ArrowRight size={14} /></a>
+            <p>
+              Leverage intelligent filtering to surface the best fits instantly.
+              Our engine analyzes skills, experience, and cultural fit to rank
+              applicants.
+            </p>
+            <a href="#" className="fs-link">
+              See how it works <ArrowRight size={14} />
+            </a>
           </div>
         </div>
       </section>
@@ -230,8 +359,15 @@ const Home = () => {
         {/* Dark Section 2 (CTA) */}
         <section className="cta-section relative">
           <div className="cta-content">
-            <h2>Your Next Role<br />Starts <span className="serif-italic-white">Here.</span></h2>
-            <p>Join the most vibrant community of professionals and creators today.</p>
+            <h2>
+              Your Next Role
+              <br />
+              Starts <span className="serif-italic-white">Here.</span>
+            </h2>
+            <p>
+              Join the most vibrant community of professionals and creators
+              today.
+            </p>
             <div className="cta-buttons">
               <button className="btn-get-started-large">Get Started Now</button>
               <button className="btn-outline-white">View Demo</button>

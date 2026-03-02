@@ -5,4 +5,5 @@ export const ROUTES = {
   HOME: "/",
   ABOUT: "/about",
   OLIVE_LANDING: "/home/olive",
+  APPLICANT: "/applicant",
 };
