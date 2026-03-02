@@ -57,7 +57,7 @@ const SideMenu = () => {
               <button
                 key={item.name}
                 onClick={() => item.path !== "#" && navigate(item.path)}
-                className={`w-full flex items-center gap-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 overflow-hidden ${isExpanded ? "px-3" : "justify-center"} ${
+                className={`w-full flex items-center gap-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200 overflow-hidden cursor-pointer ${isExpanded ? "px-3" : "justify-center"} ${
                   isActive
                     ? "bg-slate-50 text-slate-900 shadow-sm border border-slate-200/60"
                     : "text-slate-500 hover:bg-slate-50/50 hover:text-slate-900 border border-transparent"
@@ -103,7 +103,7 @@ const SideMenu = () => {
         )}
         <button
           onClick={() => navigate(ROUTES.HOME)}
-          className={`w-full flex items-center gap-2.5 py-2 rounded-lg text-[13px] font-semibold text-red-600 hover:bg-red-50 transition-colors overflow-hidden ${isExpanded ? "px-3 justify-start" : "justify-center"}`}
+          className={`w-full flex items-center gap-2.5 py-2 rounded-lg text-[13px] font-semibold text-red-600 hover:bg-red-50 transition-colors overflow-hidden cursor-pointer ${isExpanded ? "px-3 justify-start" : "justify-center"}`}
           title="Sign Out"
         >
           <LogOut size={16} strokeWidth={2.5} className="shrink-0" />

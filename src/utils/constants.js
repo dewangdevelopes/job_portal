@@ -6,4 +6,5 @@ export const ROUTES = {
   ABOUT: "/about",
   OLIVE_LANDING: "/home/olive",
   APPLICANT: "/applicant",
+  ORGANIZATION: "/organization/:id",
 };
