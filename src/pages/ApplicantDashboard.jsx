@@ -48,14 +48,14 @@ const ApplicantDashboard = () => {
 
       {/* Main Content Area (Centered) */}
       <div className="ml-[60px] md:ml-[75px] flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
-        <div className="w-full max-w-[1100px] px-5 md:px-12 py-8 md:py-14 animate-in fade-in duration-500 flex flex-col flex-1 items-center">
+        <div className="w-full max-w-[950px] px-4 md:px-8 py-6 md:py-10 animate-in fade-in duration-500 flex flex-col flex-1 items-center">
           {/* Section 1: My Applications */}
-          <section className="mb-10 md:mb-14 w-full">
-            <div className="mb-4 md:mb-6">
-              <h2 className="text-xl md:text-[22px] font-bold text-slate-900 tracking-tight">
+          <section className="mb-10 w-full">
+            <div className="mb-4">
+              <h2 className="text-lg md:text-xl font-bold text-slate-900 tracking-tight">
                 Dashboard
               </h2>
-              <p className="text-[13px] md:text-sm font-medium text-slate-500 mt-1">
+              <p className="text-[12px] md:text-[13px] font-medium text-slate-500 mt-1">
                 Track the status of your job applications.
               </p>
             </div>
@@ -93,12 +93,12 @@ const ApplicantDashboard = () => {
                 {applications.map((app, idx) => (
                   <div
                     key={idx}
-                    className="w-full bg-white border border-slate-200/80 shadow-sm rounded-[16px] flex flex-col pt-6 md:pt-8 transition-shadow hover:shadow-md"
+                    className="w-full bg-white border border-slate-200/80 shadow-sm rounded-[16px] flex flex-col pt-5 md:pt-6 transition-shadow hover:shadow-md"
                   >
-                    <div className="px-6 md:px-8 pb-5 flex justify-between items-start">
+                    <div className="px-5 md:px-8 pb-4 flex justify-between items-start">
                       <div className="flex-1">
-                        <div className="flex flex-wrap items-center gap-3 mb-3">
-                          <h3 className="text-[17px] md:text-[20px] font-bold text-slate-900 leading-tight">
+                        <div className="flex flex-wrap items-center gap-3 mb-2.5">
+                          <h3 className="text-[16px] md:text-[18px] font-bold text-slate-900 leading-tight">
                             {app.role}
                           </h3>
                           <span className="px-2 py-0.5 bg-yellow-50 text-[9px] md:text-[10px] font-bold text-yellow-700 uppercase rounded-md border border-yellow-100/50">
@@ -136,8 +136,8 @@ const ApplicantDashboard = () => {
                       </div>
                     </div>
 
-                    <div className="px-6 md:px-12 pb-8 pt-2 w-full max-w-4xl mx-auto">
-                      <div className="flex items-center justify-between w-full mt-4 md:mt-8 relative">
+                    <div className="px-5 md:px-10 pb-6 pt-2 w-full max-w-4xl mx-auto">
+                      <div className="flex items-center justify-between w-full mt-3 md:mt-5 relative">
                         <div className="absolute top-[21px] md:top-[26px] left-0 w-full h-[2px] bg-slate-100 -translate-y-1/2 z-0 rounded-full"></div>
                         <div
                           className="absolute top-[21px] md:top-[26px] left-0 h-[2px] bg-green-500 -translate-y-1/2 z-0 rounded-full transition-all duration-1000 ease-out"
@@ -173,7 +173,7 @@ const ApplicantDashboard = () => {
                       </div>
                     </div>
 
-                    <div className="bg-slate-900 text-white rounded-b-[15px] px-6 md:px-8 py-3.5 md:py-4 flex items-center justify-between mt-auto">
+                    <div className="bg-slate-900 text-white rounded-b-[15px] px-5 md:px-8 py-3 flex items-center justify-between mt-auto">
                       <span className="text-[10px] md:text-[11px] font-medium text-slate-400">
                         Last updated:{" "}
                         <span className="text-slate-200">
@@ -193,16 +193,16 @@ const ApplicantDashboard = () => {
 
           {/* Section 2: Upcoming Interview (Only visible if there are applications) */}
           {applications.length > 0 && !isLoading && (
-            <section className="mb-10 md:mb-14 w-full animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
-              <div className="mb-4 md:mb-6">
-                <h2 className="text-lg md:text-[20px] font-bold text-slate-900 tracking-tight">
+            <section className="mb-10 w-full animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
+              <div className="mb-4">
+                <h2 className="text-base md:text-lg font-bold text-slate-900 tracking-tight">
                   Upcoming Interview
                 </h2>
               </div>
 
-              <div className="w-full bg-indigo-50/50 border border-indigo-100/60 rounded-[16px] p-4 md:p-6 flex flex-col md:flex-row items-center gap-4 md:gap-6 shadow-sm hover:shadow-md hover:bg-indigo-50 transition-all duration-300">
-                <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 bg-white border border-indigo-100 rounded-2xl flex flex-col items-center justify-center shadow-sm">
-                  <span className="text-[10px] md:text-[11px] font-bold text-indigo-500 uppercase tracking-widest mb-0.5">
+              <div className="w-full bg-indigo-50/50 border border-indigo-100/60 rounded-[16px] p-4 flex flex-col md:flex-row items-center gap-4 shadow-sm hover:shadow-md hover:bg-indigo-50 transition-all duration-300">
+                <div className="w-14 h-14 md:w-16 md:h-16 shrink-0 bg-white border border-indigo-100 rounded-xl flex flex-col items-center justify-center shadow-sm">
+                  <span className="text-[9px] md:text-[10px] font-bold text-indigo-500 uppercase tracking-widest mb-0.5">
                     Oct
                   </span>
                   <span className="text-xl md:text-2xl font-black text-slate-800 leading-none">
@@ -211,10 +211,10 @@ const ApplicantDashboard = () => {
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-1">
+                  <h3 className="text-[14px] md:text-[15px] font-bold text-slate-900 mb-0.5">
                     Assistant Professor
                   </h3>
-                  <p className="text-[12px] md:text-[13px] font-medium text-slate-500 mb-2 md:mb-2.5">
+                  <p className="text-[11px] md:text-[12px] font-medium text-slate-500 mb-2">
                     Round 2: Technical Interview
                   </p>
                   <div className="flex items-center justify-center md:justify-start gap-1.5 text-[11px] md:text-xs font-semibold text-slate-500">
@@ -233,8 +233,8 @@ const ApplicantDashboard = () => {
 
           {/* Section 3: Open Positions */}
           <section className="w-full">
-            <div className="mb-4 md:mb-6 flex items-end justify-between">
-              <h2 className="text-lg md:text-[20px] font-bold text-slate-900 tracking-tight">
+            <div className="mb-4 flex items-end justify-between">
+              <h2 className="text-base md:text-lg font-bold text-slate-900 tracking-tight">
                 Open Positions
               </h2>
               <span className="text-[10px] md:text-xs font-semibold text-slate-400 uppercase tracking-widest">
@@ -315,12 +315,12 @@ const ApplicantDashboard = () => {
                     <div
                       key={idx}
                       onClick={() => navigate("/organization/olive")}
-                      className="bg-white border border-slate-200/80 rounded-[20px] p-6 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 hover:border-slate-300 transition-all duration-500 group flex flex-col justify-between cursor-pointer"
+                      className="bg-white border border-slate-200/80 rounded-[16px] p-5 hover:shadow-base hover:-translate-y-0.5 hover:border-slate-300 transition-all duration-300 group flex flex-col justify-between cursor-pointer"
                     >
                       <div>
-                        <div className="flex justify-between items-start mb-6">
+                        <div className="flex justify-between items-start mb-4">
                           <div
-                            className={`w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center ${job.hoverBg} transition-colors duration-300`}
+                            className={`w-9 h-9 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center ${job.hoverBg} transition-colors duration-300`}
                           >
                             {job.icon}
                           </div>
@@ -329,19 +329,19 @@ const ApplicantDashboard = () => {
                           </span>
                         </div>
 
-                        <h3 className="text-[15px] md:text-base font-bold text-slate-900 mb-1 md:mb-2 group-hover:text-slate-800 transition-colors">
+                        <h3 className="text-[14px] md:text-[15px] font-bold text-slate-900 mb-1 group-hover:text-slate-800 transition-colors">
                           {job.role}
                         </h3>
-                        <div className="flex items-center gap-1.5 text-xs md:text-[13px] text-slate-500 font-medium">
+                        <div className="flex items-center gap-1.5 text-[11px] md:text-[12px] text-slate-500 font-medium">
                           <Building
-                            size={14}
+                            size={12}
                             className="text-slate-400 group-hover:text-slate-500 transition-colors"
                           />
                           {job.dept}
                         </div>
                       </div>
 
-                      <div className="mt-6 md:mt-8 pt-4 md:pt-5 border-t border-slate-100 flex items-center justify-between">
+                      <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
                         <div>
                           <span className="block text-[9px] md:text-[10px] uppercase font-bold text-slate-400 mb-0.5 tracking-wider">
                             Deadline

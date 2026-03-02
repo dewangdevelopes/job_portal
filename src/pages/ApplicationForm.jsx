@@ -37,7 +37,7 @@ const ApplicationForm = () => {
   };
 
   const renderStepper = () => (
-    <div className="w-full max-w-4xl mx-auto mb-10 px-4">
+    <div className="w-full max-w-3xl mx-auto mb-8 px-4">
       <div className="flex justify-between items-center relative">
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-[2px] bg-slate-100 -z-10 rounded-full"></div>
         <div
@@ -84,12 +84,12 @@ const ApplicationForm = () => {
       <SideMenu />
 
       <div className="ml-[60px] md:ml-[75px] flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
-        <div className="w-full max-w-4xl px-5 md:px-12 py-8 md:py-12 animate-in fade-in duration-500 flex flex-col flex-1">
-          <div className="mb-8 text-center md:text-left">
-            <p className="text-lg md:text-xl font-bold text-slate-900 tracking-tight mb-1">
+        <div className="w-full max-w-3xl px-4 md:px-8 py-6 md:py-8 animate-in fade-in duration-500 flex flex-col flex-1">
+          <div className="mb-6 mt-2 text-center md:text-left">
+            <p className="text-base md:text-lg font-bold text-slate-900 tracking-tight mb-1">
               Application for Teacher
             </p>
-            <p className="text-[13px] md:text-[15px] font-medium text-slate-500">
+            <p className="text-[12px] md:text-[13px] font-medium text-slate-500">
               School of Engineering • Computer Science
             </p>
           </div>
@@ -99,9 +99,9 @@ const ApplicationForm = () => {
           <div className="w-full relative min-h-[400px]">
             {/* STEP 1: PERSONAL DETAILS */}
             {currentStep === 1 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-3xl mx-auto">
-                <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl p-6 md:p-8">
-                  <h2 className="text-lg font-bold text-slate-900 mb-6">
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-2xl mx-auto">
+                <div className="bg-white border border-slate-200/80 shadow-sm rounded-[16px] p-5 md:p-6">
+                  <h2 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-5">
                     Personal Details
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 mb-8">
@@ -200,9 +200,9 @@ const ApplicationForm = () => {
 
             {/* STEP 2: POSITION DETAILS */}
             {currentStep === 2 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-3xl mx-auto">
-                <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl p-6 md:p-8">
-                  <h2 className="text-lg font-bold text-slate-900 mb-6">
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-2xl mx-auto">
+                <div className="bg-white border border-slate-200/80 shadow-sm rounded-[16px] p-5 md:p-6">
+                  <h2 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-5">
                     Position Details
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -251,9 +251,9 @@ const ApplicationForm = () => {
 
             {/* STEP 3: EDUCATIONAL QUALIFICATION */}
             {currentStep === 3 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-3xl mx-auto">
-                <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl p-6 md:p-8">
-                  <h2 className="text-lg font-bold text-slate-900 mb-6">
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-2xl mx-auto">
+                <div className="bg-white border border-slate-200/80 shadow-sm rounded-[16px] p-5 md:p-6">
+                  <h2 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-5">
                     Educational Qualification
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 mb-6">
@@ -336,9 +336,9 @@ const ApplicationForm = () => {
 
             {/* STEP 4: EXPERIENCE */}
             {currentStep === 4 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-3xl mx-auto">
-                <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl p-6 md:p-8">
-                  <h2 className="text-lg font-bold text-slate-900 mb-6">
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-2xl mx-auto">
+                <div className="bg-white border border-slate-200/80 shadow-sm rounded-[16px] p-5 md:p-6">
+                  <h2 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-5">
                     Experience & Curriculums Handled
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -401,9 +401,9 @@ const ApplicationForm = () => {
 
             {/* STEP 5: PASSPORT DETAILS */}
             {currentStep === 5 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-3xl mx-auto">
-                <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl p-6 md:p-8">
-                  <h2 className="text-lg font-bold text-slate-900 mb-6">
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-2xl mx-auto">
+                <div className="bg-white border border-slate-200/80 shadow-sm rounded-[16px] p-5 md:p-6">
+                  <h2 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-5">
                     Passport Details
                   </h2>
                   <div className="mb-6">
@@ -472,9 +472,9 @@ const ApplicationForm = () => {
 
             {/* STEP 6: UPLOAD CV (New UI from Screenshot) */}
             {currentStep === 6 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-3xl mx-auto">
-                <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl p-6 md:p-8">
-                  <h2 className="text-lg font-bold text-slate-900 mb-6">
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-2xl mx-auto">
+                <div className="bg-white border border-slate-200/80 shadow-sm rounded-[16px] p-5 md:p-6">
+                  <h2 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-5">
                     Upload
                   </h2>
                   <label className="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-tight">
@@ -527,9 +527,9 @@ const ApplicationForm = () => {
 
             {/* STEP 7: REVIEW */}
             {currentStep === 7 && (
-              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-3xl mx-auto">
-                <div className="bg-white border border-slate-200/80 shadow-sm rounded-2xl p-6 md:p-8">
-                  <h2 className="text-lg font-bold text-slate-900 mb-6">
+              <div className="animate-in fade-in slide-in-from-right-4 duration-500 w-full max-w-2xl mx-auto">
+                <div className="bg-white border border-slate-200/80 shadow-sm rounded-[16px] p-5 md:p-6">
+                  <h2 className="text-[15px] md:text-[17px] font-bold text-slate-900 mb-5">
                     Review Application
                   </h2>
                   <div className="bg-slate-50/80 rounded-xl p-6 grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 mb-8">
