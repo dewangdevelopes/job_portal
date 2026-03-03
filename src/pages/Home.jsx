@@ -81,7 +81,7 @@ const Home = () => {
   return (
     <div className="home-page">
       {/* Navigation (Fixed to Top) */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-xl bg-white/75 border-b border-slate-200/50 flex items-center justify-between px-8 py-3 w-full transition-all duration-300">
+      <nav className="fixed top-0 left-0 right-0 z-[100] backdrop-blur-md bg-white/60 border-b border-gray-200/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)] flex items-center justify-between px-8 py-3 w-full transition-all duration-300">
         <div className="max-w-[94%] mx-auto w-full flex flex-row items-center justify-between">
           <div className="flex items-center gap-2.5 font-bold text-[15px] text-slate-900">
             <div className="bg-slate-900 text-white p-1 rounded-md flex items-center justify-center shadow-sm">
@@ -109,7 +109,7 @@ const Home = () => {
       {/* Group 1: Fold */}
       <div ref={section1Ref} className="w-full pb-6 pt-20 relative">
         {/* Hero Section */}
-        <header className="relative pt-8 pb-4 px-8 max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <header className="relative pt-8 pb-4 px-4 md:px-8 max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Background Gradient Wrapper */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#f8fafc] via-[#eff6fc] to-[#e0f2fe]/40 -z-10 pointer-events-none rounded-[40px] m-4"></div>
 
@@ -122,7 +122,7 @@ const Home = () => {
 
                 return (
                   <div key={index} className={`col-start-1 row-start-1 flex flex-col justify-center h-full w-full ${isActive ? 'z-10 pointer-events-auto' : 'z-0 pointer-events-none'} ${isHidden ? 'hidden' : ''}`}>
-                    <h1 className="text-[4rem] md:text-[5rem] text-[#1e293b] leading-[1.05] mb-6 tracking-tight flex flex-wrap" style={{ fontFamily: '"Playfair Display", serif', fontWeight: 400 }}>
+                    <h1 className="text-[3.25rem] md:text-[5rem] text-[#1e293b] leading-[1.05] mb-6 tracking-tight flex flex-wrap" style={{ fontFamily: '"Playfair Display", serif', fontWeight: 400 }}>
                       <div className="w-full">
                         <AnimatedWordGroup text={slideData.headingLine1} startIndex={0} isActive={isActive} isExiting={isExiting} />
                       </div>
@@ -140,11 +140,11 @@ const Home = () => {
                     <div className={`flex flex-wrap gap-4 mb-16 min-h-[50px] ${isActive ? 'fade-enter' : (isExiting ? 'fade-exit' : '')}`}>
                       {slideData.buttons.map((btn, idx) => (
                         btn.primary ? (
-                          <button key={idx} className="px-8 py-3.5 rounded-full bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors flex items-center gap-2 shadow-lg shadow-blue-500/20">
+                          <button key={idx} className="px-8 py-3.5 cursor-pointer rounded-full bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors flex items-center gap-2 shadow-lg shadow-blue-500/20">
                             {btn.text} <ArrowRight size={16} />
                           </button>
                         ) : (
-                          <button key={idx} className="px-8 py-3.5 rounded-full border border-slate-200 bg-transparent text-slate-700 font-medium hover:bg-slate-50 transition-colors">
+                          <button key={idx} className="px-8 py-3.5 cursor-pointer rounded-full border border-slate-200 bg-transparent text-slate-700 font-medium hover:bg-slate-50 transition-colors">
                             {btn.text}
                           </button>
                         )
@@ -182,7 +182,7 @@ const Home = () => {
             </div>
 
             {/* Floating Card 1 (Top Left) */}
-            <div className="absolute -top-6 -left-12 md:-left-20 bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex flex-col gap-4 w-[260px] animate-[float-hero-element_6s_ease-in-out_infinite] z-20">
+            <div className="hidden md:flex absolute -top-6 -left-12 md:-left-20 bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex-col gap-4 w-[260px] animate-[float-hero-element_6s_ease-in-out_infinite] z-20">
               <div className="flex items-center justify-between">
                 <div className="w-10 h-10 rounded-xl bg-indigo-500 flex items-center justify-center text-white">
                   <Sparkles size={18} />
@@ -200,7 +200,7 @@ const Home = () => {
             </div>
 
             {/* Floating Card 2 (Right Center) */}
-            <div className="absolute top-1/2 -right-8 md:-right-16 translate-y-[-20%] bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex flex-col gap-4 w-[280px] animate-[float-hero-element_6s_ease-in-out_2s_infinite] z-20">
+            <div className="hidden md:flex absolute top-1/2 -right-8 md:-right-16 translate-y-[-20%] bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex-col gap-4 w-[280px] animate-[float-hero-element_6s_ease-in-out_2s_infinite] z-20">
               <div className="flex items-center justify-between">
                 <div className="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center text-white shadow-sm">
                   <Building size={18} />
@@ -218,7 +218,7 @@ const Home = () => {
             </div>
 
             {/* Floating Card 3 (Bottom Center) */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] bg-white/70 backdrop-blur-xl p-3 pr-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 flex items-center justify-between z-20">
+            <div className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] bg-white/70 backdrop-blur-xl p-3 pr-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/80 items-center justify-between z-20">
               <div className="flex -space-x-2">
                 <img src="/avatar_1.png" className="w-8 h-8 rounded-full border-2 border-white object-cover bg-blue-500" alt="User 1" />
                 <img src="/avatar_2.png" className="w-8 h-8 rounded-full border-2 border-white object-cover bg-orange-400" alt="User 2" />

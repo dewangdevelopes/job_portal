@@ -83,18 +83,29 @@ const LoginModal = ({ isOpen, onClose }) => {
 
 
     const handleClose = () => {
-        setView('role');
-        setIsOtpSent(false);
-        setPassword('');
-        setConfirmPassword('');
-        setPasswordError('');
-        setForgotPasswordStep('email');
-        setOtp(['', '', '', '']);
-        setSelectedCountry({ phonecode: '91', iso3: 'IND', emoji: '🇮🇳' });
-        setIsCountryDropdownOpen(false);
-        setCountrySearchTerm('');
         onClose();
     };
+
+    // Reset all state when the modal closes
+    useEffect(() => {
+        if (!isOpen) {
+            setView('role');
+            setIsOtpSent(false);
+            setPassword('');
+            setConfirmPassword('');
+            setPasswordError('');
+            setShowSetPassword(false);
+            setShowConfirmPassword(false);
+            setShowLoginPassword(false);
+            setForgotPasswordStep('email');
+            setOtp(['', '', '', '']);
+            setSelectedCountry({ phonecode: '91', iso3: 'IND', emoji: '🇮🇳' });
+            setIsCountryDropdownOpen(false);
+            setCountrySearchTerm('');
+            setIsGenderDropdownOpen(false);
+            setSelectedGender('');
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -167,7 +178,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-0 md:p-4">
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
@@ -176,13 +187,12 @@ const LoginModal = ({ isOpen, onClose }) => {
 
             {/* Modal Content */}
             <div
-                className="relative w-full max-w-[70%] bg-[#1e202c]/40 backdrop-blur-2xl rounded-[40px] p-8 md:p-14 shadow-2xl border border-white/10"
+                className="relative w-full h-full md:h-auto max-w-full md:max-w-[70%] bg-[#1e202c]/40 backdrop-blur-2xl rounded-none md:rounded-[40px] p-4 sm:p-6 md:p-14 shadow-2xl border border-white/10 max-h-[100dvh] md:max-h-[95vh] overflow-y-auto custom-light-scrollbar"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Close Button */}
                 <button
                     onClick={handleClose}
-                    className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors cursor-pointer"
+                    className="absolute top-4 right-4 md:top-8 md:right-8 text-white/40 hover:text-white transition-colors cursor-pointer"
                 >
                     <X size={24} />
                 </button>
@@ -200,7 +210,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         </div>
 
                         {/* Roles Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[70%] mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:max-w-[80%] lg:max-w-[70%] mx-auto">
                             {/* Candidate Card */}
                             <div className="bg-white rounded-2xl p-7 flex flex-col items-center text-center shadow-md border border-slate-100 h-full">
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
@@ -345,7 +355,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         </div>
 
                         {/* Signup Card */}
-                        <div className="bg-white rounded-[32px] p-8 shadow-xl border border-slate-100 overflow-hidden">
+                        <div className="bg-white rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-xl border border-slate-100 overflow-hidden">
                             <div className="flex flex-col items-center">
                                 {/* Lock Icon */}
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
@@ -441,7 +451,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="space-y-1.5">
                                             <label className="text-[12px] font-medium text-slate-600 ml-1">Date of Birth</label>
                                             <div className="relative">
@@ -595,7 +605,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         </div>
 
                         {/* Card Content */}
-                        <div className="bg-white rounded-[32px] p-8 shadow-xl border border-slate-100 overflow-hidden">
+                        <div className="bg-white rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-xl border border-slate-100 overflow-hidden">
                             <div className="flex flex-col items-center">
                                 {/* Icon */}
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-8">
@@ -735,7 +745,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                         </div>
 
                         {/* Password Card */}
-                        <div className="bg-white rounded-[32px] p-8 shadow-xl border border-slate-100 overflow-hidden">
+                        <div className="bg-white rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-xl border border-slate-100 overflow-hidden">
                             <div className="flex flex-col items-center">
                                 {/* Lock Icon */}
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-8">
