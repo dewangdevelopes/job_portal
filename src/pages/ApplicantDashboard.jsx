@@ -46,8 +46,7 @@ const ApplicantDashboard = () => {
     <div className="flex min-h-[100dvh] bg-[#fdfdfd]">
       <SideMenu />
 
-      {/* Main Content Area (Centered) */}
-      <div className="ml-[60px] md:ml-[75px] flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
+      <div className="max-md:ml-0 md:ml-0 max-md:pt-14 flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
         <div className="w-full max-w-[950px] px-4 md:px-8 py-6 md:py-10 animate-in fade-in duration-500 flex flex-col flex-1 items-center">
           {/* Section 1: My Applications */}
           <section className="mb-10 w-full">

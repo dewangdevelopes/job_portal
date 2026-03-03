@@ -18,6 +18,58 @@ const ApplicationForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    dob: "",
+    gender: "",
+    address: "",
+    applyingFor: "Computer Science",
+    gradeLevelsHandled: "",
+    gradeLevelsPreferred: "",
+    highestQual: "",
+    specialisation: "",
+    bed: "",
+    bedYear: "",
+    med: "",
+    medYear: "",
+    lastSchool: "",
+    experience: "",
+    curriculums: [],
+    passportAvailable: "No",
+    passportNumber: "",
+    passportExpiry: "",
+    declaration: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox" && name === "curriculums") {
+      setFormData((prev) => ({
+        ...prev,
+        curriculums: checked
+          ? [...prev.curriculums, value]
+          : prev.curriculums.filter((c) => c !== value),
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+  };
+
+  const handleRadioChange = (val) => {
+    setFormData((prev) => ({ ...prev, passportAvailable: val }));
+  };
+
+  const handleSubmit = () => {
+    console.log("Form Submitted:", formData);
+    setIsModalOpen(false);
+    navigate("/applicant");
+  };
+
   const steps = [
     { id: 1, name: "Personal" },
     { id: 2, name: "Position" },
@@ -83,7 +135,7 @@ const ApplicationForm = () => {
     <div className="flex min-h-[100dvh] bg-[#fdfdfd]">
       <SideMenu />
 
-      <div className="ml-[60px] md:ml-[75px] flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
+      <div className="max-md:ml-0 md:ml-0 max-md:pt-14 flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
         <div className="w-full max-w-3xl px-4 md:px-8 py-6 md:py-8 animate-in fade-in duration-500 flex flex-col flex-1">
           <div className="mb-6 mt-2 text-center md:text-left">
             <p className="text-base md:text-lg font-bold text-slate-900 tracking-tight mb-1">
@@ -106,24 +158,29 @@ const ApplicationForm = () => {
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 mb-8">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
+                      <label className="block text-[11px] font-bold text-black mb-1.5 uppercase">
                         Full Name
                       </label>
                       <input
                         type="text"
                         placeholder="New Applicant"
-                        className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-text"
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
+                      <label className="block text-[11px] font-bold text-black mb-1.5 uppercase">
                         Email
                       </label>
                       <input
                         type="email"
-                        placeholder="amal.m@kristujayanti.com"
-                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-slate-500 cursor-not-allowed"
-                        disabled
+                        placeholder="example@gmail.com"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-text"
                       />
                     </div>
                     <div>
@@ -133,7 +190,10 @@ const ApplicationForm = () => {
                       <input
                         type="text"
                         placeholder="+91 98765 43210"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-text"
                       />
                     </div>
                     <div>
@@ -142,14 +202,22 @@ const ApplicationForm = () => {
                       </label>
                       <input
                         type="date"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
+                        name="dob"
+                        value={formData.dob}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer"
                       />
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Gender
                       </label>
-                      <select className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] appearance-none bg-[url('data:image/svg+xml;...')] bg-no-repeat bg-[position:right_10px_center]">
+                      <select
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] appearance-none bg-[url('data:image/svg+xml;...')] bg-no-repeat bg-[position:right_10px_center] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer"
+                      >
                         <option value="">Choose Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -159,15 +227,20 @@ const ApplicationForm = () => {
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Upload Photo
                       </label>
-                      <div className="w-full h-full min-h-[120px] border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-slate-50/50 cursor-pointer">
+                      <label className="w-full h-full min-h-[120px] border border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 hover:border-slate-400 transition-all cursor-pointer group">
                         <UploadCloud
                           size={20}
-                          className="text-slate-400 mb-1"
+                          className="text-slate-400 group-hover:text-slate-600 mb-1 transition-colors"
                         />
-                        <span className="text-[10px] text-slate-500">
+                        <span className="text-[10px] text-slate-500 group-hover:text-slate-700 transition-colors">
                           Click to upload
                         </span>
-                      </div>
+                        <input
+                          type="file"
+                          className="hidden"
+                          accept="image/*"
+                        />
+                      </label>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
@@ -176,20 +249,23 @@ const ApplicationForm = () => {
                       <textarea
                         rows="3"
                         placeholder="Enter your current address"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] resize-none"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] resize-none outline-none focus:ring-2 focus:ring-slate-900/10 cursor-text"
                       ></textarea>
                     </div>
                   </div>
                   <div className="pt-6 border-t flex justify-between">
                     <button
                       onClick={() => navigate(-1)}
-                      className="px-6 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px]"
+                      className="px-6 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleNext}
-                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-800 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Next <ChevronRight size={16} />
                     </button>
@@ -210,37 +286,105 @@ const ApplicationForm = () => {
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Applying For (Subject)
                       </label>
-                      <select className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]">
-                        <option>Computer Science</option>
+                      <select
+                        name="applyingFor"
+                        value={formData.applyingFor}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
+                        <option value="Computer Science">
+                          Computer Science
+                        </option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="English">English</option>
+                        <option value="History">History</option>
+                        <option value="Geography">Geography</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Political Science">
+                          Political Science
+                        </option>
+                        <option value="Environmental Science">
+                          Environmental Science
+                        </option>
+                        <option value="Physical Education">
+                          Physical Education
+                        </option>
+                        <option value="Art & Craft">Art &amp; Craft</option>
+                        <option value="Music">Music</option>
                       </select>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Grade Levels Handled
                       </label>
-                      <select className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]">
+                      <select
+                        name="gradeLevelsHandled"
+                        value={formData.gradeLevelsHandled}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
                         <option value="">Select Grade</option>
+                        <option value="Pre-Primary (Nursery – KG)">
+                          Pre-Primary (Nursery – KG)
+                        </option>
+                        <option value="Primary (Grade 1–5)">
+                          Primary (Grade 1–5)
+                        </option>
+                        <option value="Middle School (Grade 6–8)">
+                          Middle School (Grade 6–8)
+                        </option>
+                        <option value="Secondary (Grade 9–10)">
+                          Secondary (Grade 9–10)
+                        </option>
+                        <option value="Senior Secondary (Grade 11–12)">
+                          Senior Secondary (Grade 11–12)
+                        </option>
+                        <option value="All Grades">All Grades</option>
                       </select>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Grade Levels Preferred
                       </label>
-                      <select className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]">
+                      <select
+                        name="gradeLevelsPreferred"
+                        value={formData.gradeLevelsPreferred}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
                         <option value="">Select Grade</option>
+                        <option value="Pre-Primary (Nursery – KG)">
+                          Pre-Primary (Nursery – KG)
+                        </option>
+                        <option value="Primary (Grade 1–5)">
+                          Primary (Grade 1–5)
+                        </option>
+                        <option value="Middle School (Grade 6–8)">
+                          Middle School (Grade 6–8)
+                        </option>
+                        <option value="Secondary (Grade 9–10)">
+                          Secondary (Grade 9–10)
+                        </option>
+                        <option value="Senior Secondary (Grade 11–12)">
+                          Senior Secondary (Grade 11–12)
+                        </option>
+                        <option value="All Grades">All Grades</option>
                       </select>
                     </div>
                   </div>
                   <div className="pt-6 mt-8 border-t flex justify-between">
                     <button
                       onClick={handlePrev}
-                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       <ChevronLeft size={16} /> Previous
                     </button>
                     <button
                       onClick={handleNext}
-                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-800 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Next <ChevronRight size={16} />
                     </button>
@@ -261,26 +405,85 @@ const ApplicationForm = () => {
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Highest Qualification
                       </label>
-                      <input
-                        type="text"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
-                      />
+                      <select
+                        name="highestQual"
+                        value={formData.highestQual}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
+                        <option value="">Select Qualification</option>
+                        <option value="10th / SSC">10th / SSC</option>
+                        <option value="12th / HSC">12th / HSC</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="B.Sc">B.Sc</option>
+                        <option value="B.A">B.A</option>
+                        <option value="B.Com">B.Com</option>
+                        <option value="B.Tech / B.E">B.Tech / B.E</option>
+                        <option value="BCA">BCA</option>
+                        <option value="BBA">BBA</option>
+                        <option value="M.Sc">M.Sc</option>
+                        <option value="M.A">M.A</option>
+                        <option value="M.Com">M.Com</option>
+                        <option value="M.Tech / M.E">M.Tech / M.E</option>
+                        <option value="MCA">MCA</option>
+                        <option value="MBA">MBA</option>
+                        <option value="Ph.D">Ph.D</option>
+                        <option value="Post Doctorate">Post Doctorate</option>
+                      </select>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
-                        Specialisation/ Major Subject
+                        Specialisation / Major Subject
                       </label>
-                      <input
-                        type="text"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
-                      />
+                      <select
+                        name="specialisation"
+                        value={formData.specialisation}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
+                        <option value="">Select Specialisation</option>
+                        <option value="Computer Science">
+                          Computer Science
+                        </option>
+                        <option value="Information Technology">
+                          Information Technology
+                        </option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="English Literature">
+                          English Literature
+                        </option>
+                        <option value="History">History</option>
+                        <option value="Geography">Geography</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Education">Education</option>
+                        <option value="Psychology">Psychology</option>
+                        <option value="Sociology">Sociology</option>
+                        <option value="Political Science">
+                          Political Science
+                        </option>
+                        <option value="Environmental Science">
+                          Environmental Science
+                        </option>
+                      </select>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         B.Ed.
                       </label>
-                      <select className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]">
-                        <option>Select</option>
+                      <select
+                        name="bed"
+                        value={formData.bed}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Pursuing">Pursuing</option>
                       </select>
                     </div>
                     <div>
@@ -288,16 +491,27 @@ const ApplicationForm = () => {
                         Year of Completion (B.Ed)
                       </label>
                       <input
-                        type="text"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
+                        type="date"
+                        name="bedYear"
+                        value={formData.bedYear}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer"
                       />
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         M.Ed.
                       </label>
-                      <select className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]">
-                        <option>Select</option>
+                      <select
+                        name="med"
+                        value={formData.med}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Pursuing">Pursuing</option>
                       </select>
                     </div>
                     <div>
@@ -305,8 +519,11 @@ const ApplicationForm = () => {
                         Year of Completion (M.Ed)
                       </label>
                       <input
-                        type="text"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
+                        type="date"
+                        name="medYear"
+                        value={formData.medYear}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer"
                       />
                     </div>
                   </div>
@@ -319,13 +536,13 @@ const ApplicationForm = () => {
                   <div className="pt-6 border-t flex justify-between">
                     <button
                       onClick={handlePrev}
-                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-5 py-2.5 rounded-full text-slate-600 font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       <ChevronLeft size={16} /> Previous
                     </button>
                     <button
                       onClick={handleNext}
-                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-800 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Next <ChevronRight size={16} />
                     </button>
@@ -346,17 +563,67 @@ const ApplicationForm = () => {
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Last School Name
                       </label>
-                      <input
-                        type="text"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
-                      />
+                      <select
+                        name="lastSchool"
+                        value={formData.lastSchool}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer bg-white"
+                      >
+                        <option value="">Select School</option>
+                        <option value="Delhi Public School, New Delhi">
+                          Delhi Public School, New Delhi
+                        </option>
+                        <option value="Kendriya Vidyalaya, Mumbai">
+                          Kendriya Vidyalaya, Mumbai
+                        </option>
+                        <option value="The Doon School, Dehradun">
+                          The Doon School, Dehradun
+                        </option>
+                        <option value="St. Xavier's High School, Kolkata">
+                          St. Xavier's High School, Kolkata
+                        </option>
+                        <option value="Springdales School, Pusa Road">
+                          Springdales School, Pusa Road
+                        </option>
+                        <option value="Ryan International School, Bengaluru">
+                          Ryan International School, Bengaluru
+                        </option>
+                        <option value="Amity International School, Noida">
+                          Amity International School, Noida
+                        </option>
+                        <option value="Bishop Cotton School, Shimla">
+                          Bishop Cotton School, Shimla
+                        </option>
+                        <option value="The Cathedral & John Connon School, Mumbai">
+                          The Cathedral &amp; John Connon School, Mumbai
+                        </option>
+                        <option value="Jamnabai Narsee School, Mumbai">
+                          Jamnabai Narsee School, Mumbai
+                        </option>
+                        <option value="Vidya Niketan School, Chennai">
+                          Vidya Niketan School, Chennai
+                        </option>
+                        <option value="GD Goenka Public School, Gurugram">
+                          GD Goenka Public School, Gurugram
+                        </option>
+                        <option value="Other">Other</option>
+                      </select>
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase">
                         Total Teaching Experience (Years)
                       </label>
-                      <select className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]">
-                        <option>Select</option>
+                      <select
+                        name="experience"
+                        value={formData.experience}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer"
+                      >
+                        <option value="">Select</option>
+                        <option value="Fresher">Fresher</option>
+                        <option value="1-3 Years">1-3 Years</option>
+                        <option value="3-5 Years">3-5 Years</option>
+                        <option value="5+ Years">5+ Years</option>
                       </select>
                     </div>
                   </div>
@@ -373,7 +640,11 @@ const ApplicationForm = () => {
                           >
                             <input
                               type="checkbox"
-                              className="rounded text-slate-900"
+                              name="curriculums"
+                              value={c}
+                              checked={formData.curriculums.includes(c)}
+                              onChange={handleChange}
+                              className="rounded text-slate-900 cursor-pointer"
                             />{" "}
                             {c}
                           </label>
@@ -384,13 +655,13 @@ const ApplicationForm = () => {
                   <div className="pt-6 border-t flex justify-between">
                     <button
                       onClick={handlePrev}
-                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       <ChevronLeft size={16} /> Previous
                     </button>
                     <button
                       onClick={handleNext}
-                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-800 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Next <ChevronRight size={16} />
                     </button>
@@ -415,7 +686,9 @@ const ApplicationForm = () => {
                         <input
                           type="radio"
                           name="passport"
-                          className="text-slate-900"
+                          checked={formData.passportAvailable === "Yes"}
+                          onChange={() => handleRadioChange("Yes")}
+                          className="text-slate-900 cursor-pointer"
                         />{" "}
                         <span className="text-[12px]">Yes</span>
                       </label>
@@ -423,8 +696,9 @@ const ApplicationForm = () => {
                         <input
                           type="radio"
                           name="passport"
-                          defaultChecked
-                          className="text-slate-900"
+                          checked={formData.passportAvailable === "No"}
+                          onChange={() => handleRadioChange("No")}
+                          className="text-slate-900 cursor-pointer"
                         />{" "}
                         <span className="text-[12px]">No</span>
                       </label>
@@ -438,7 +712,10 @@ const ApplicationForm = () => {
                       <input
                         type="text"
                         placeholder="Enter Passport Number"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
+                        name="passportNumber"
+                        value={formData.passportNumber}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-text"
                       />
                     </div>
                     <div>
@@ -446,22 +723,24 @@ const ApplicationForm = () => {
                         Passport Expiry Date
                       </label>
                       <input
-                        type="text"
-                        placeholder="DD/MM/YYYY"
-                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px]"
+                        type="date"
+                        name="passportExpiry"
+                        value={formData.passportExpiry}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-[13px] outline-none focus:ring-2 focus:ring-slate-900/10 cursor-pointer"
                       />
                     </div>
                   </div>
                   <div className="pt-6 border-t flex justify-between">
                     <button
                       onClick={handlePrev}
-                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       <ChevronLeft size={16} /> Previous
                     </button>
                     <button
                       onClick={handleNext}
-                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-800 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Next <ChevronRight size={16} />
                     </button>
@@ -480,23 +759,27 @@ const ApplicationForm = () => {
                   <label className="block text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-tight">
                     Upload CV/ Resume (PDF)
                   </label>
-                  <div className="w-full h-44 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 transition-all cursor-pointer group">
+                  <label className="w-full h-44 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer group">
                     <UploadCloud
                       size={32}
-                      className="text-slate-400 group-hover:text-slate-600 mb-2"
+                      className="text-slate-400 group-hover:text-slate-600 mb-2 transition-colors"
                     />
-                    <span className="text-[13px] font-medium text-slate-600">
+                    <span className="text-[13px] font-medium text-slate-600 group-hover:text-slate-900 transition-colors">
                       Click to upload or drag and drop
                     </span>
-                    <span className="text-[11px] text-slate-400 mt-1">
+                    <span className="text-[11px] text-slate-400 mt-1 transition-colors group-hover:text-slate-500">
                       PDF only (Max 5MB)
                     </span>
-                  </div>
+                    <input type="file" className="hidden" accept=".pdf" />
+                  </label>
                   <div className="mt-6 flex items-start gap-3">
                     <input
                       type="checkbox"
                       id="declare"
-                      className="mt-1 rounded border-slate-300 text-slate-900"
+                      name="declaration"
+                      checked={formData.declaration}
+                      onChange={handleChange}
+                      className="mt-1 rounded border-slate-300 text-slate-900 cursor-pointer"
                     />
                     <label
                       htmlFor="declare"
@@ -510,13 +793,13 @@ const ApplicationForm = () => {
                   <div className="pt-6 mt-8 border-t flex justify-between">
                     <button
                       onClick={handlePrev}
-                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       <ChevronLeft size={16} /> Previous
                     </button>
                     <button
                       onClick={handleNext}
-                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-800 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Next <ChevronRight size={16} />
                     </button>
@@ -538,7 +821,7 @@ const ApplicationForm = () => {
                         Full Name
                       </p>
                       <p className="text-[13px] font-bold text-slate-900">
-                        New Applicant
+                        {formData.fullName || "—"}
                       </p>
                     </div>
                     <div>
@@ -546,7 +829,7 @@ const ApplicationForm = () => {
                         Email
                       </p>
                       <p className="text-[13px] font-bold text-slate-900">
-                        amal.m@kristujayanti.com
+                        {formData.email || "—"}
                       </p>
                     </div>
                     <div>
@@ -554,7 +837,7 @@ const ApplicationForm = () => {
                         Phone
                       </p>
                       <p className="text-[13px] font-bold text-slate-900">
-                        83837484
+                        {formData.phone || "—"}
                       </p>
                     </div>
                     <div>
@@ -562,7 +845,7 @@ const ApplicationForm = () => {
                         Highest Qualification
                       </p>
                       <p className="text-[13px] font-bold text-slate-900">
-                        PhD
+                        {formData.highestQual || "—"}
                       </p>
                     </div>
                     <div>
@@ -570,7 +853,7 @@ const ApplicationForm = () => {
                         Experience
                       </p>
                       <p className="text-[13px] font-bold text-slate-900">
-                        5 Years
+                        {formData.experience || "—"}
                       </p>
                     </div>
                     <div>
@@ -578,20 +861,20 @@ const ApplicationForm = () => {
                         Current Role
                       </p>
                       <p className="text-[13px] font-bold text-slate-900">
-                        Assistant Professor
+                        {formData.applyingFor || "—"}
                       </p>
                     </div>
                   </div>
                   <div className="w-full pt-6 border-t flex justify-between">
                     <button
                       onClick={handlePrev}
-                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5"
+                      className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] flex items-center gap-1.5 hover:bg-slate-50 hover:text-slate-900 transition-all cursor-pointer shadow-sm hover:shadow-md"
                     >
                       <ChevronLeft size={16} /> Previous
                     </button>
                     <button
                       onClick={() => setIsModalOpen(true)}
-                      className="px-8 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-2 transition-all hover:bg-slate-800"
+                      className="px-8 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] flex items-center gap-2 transition-all hover:bg-slate-800 cursor-pointer shadow-sm hover:shadow-md"
                     >
                       Submit <Check size={16} />
                     </button>
@@ -622,7 +905,7 @@ const ApplicationForm = () => {
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 transition-colors"
+                className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
               >
                 <X size={20} />
               </button>
@@ -635,13 +918,13 @@ const ApplicationForm = () => {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold text-[13px] hover:bg-slate-50 transition-colors"
+                className="px-5 py-2.5 rounded-lg border border-slate-200 text-slate-600 font-bold text-[13px] hover:bg-slate-50 cursor-pointer transition-all shadow-sm hover:shadow-md"
               >
                 Cancel
               </button>
               <button
-                onClick={() => navigate("/applicant")}
-                className="px-6 py-2.5 rounded-full bg-slate-900 text-white font-bold text-[13px] hover:bg-slate-800 transition-colors"
+                onClick={handleSubmit}
+                className="px-6 py-2.5 rounded-lg bg-slate-900 text-white font-bold text-[13px] hover:bg-slate-800 cursor-pointer transition-all shadow-sm hover:shadow-md"
               >
                 Yes, Submit
               </button>

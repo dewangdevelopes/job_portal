@@ -4,6 +4,8 @@ import SideMenu from "../components/SideMenu";
 import Footer from "../components/Footer";
 import { ROUTES } from "../utils/constants";
 import { Search, Building, BookOpen, User, ArrowRight } from "lucide-react";
+import oliveLogo from "../assets/olivelogo1.svg";
+import oliveSchoolBuilding from "../assets/oliveschoolimage1.svg";
 
 const Organization = () => {
   const { id } = useParams();
@@ -78,13 +80,13 @@ const Organization = () => {
     <div className="flex min-h-[100dvh] bg-[#fdfdfd]">
       <SideMenu />
       {/* Main Content Area */}
-      <div className="ml-[60px] md:ml-[75px] flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
+      <div className="max-md:ml-0 md:ml-0 max-md:pt-14 flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
         <div className="w-full max-w-[950px] px-4 md:px-8 py-6 md:py-10 animate-in fade-in duration-500 flex flex-col flex-1">
           {/* Top Title/Breadcrumbs */}
           <div className="mb-6 flex items-center gap-3">
             <button
               onClick={() => navigate(-1)}
-              className="shrink-0 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-slate-50 hover:shadow-sm transition-all cursor-pointer"
+              className="shrink-0 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-white hover:bg-slate-50 hover:shadow-sm hovor:rounded-full transition-all cursor-pointer"
               aria-label="Go back"
             >
               <svg
@@ -121,16 +123,16 @@ const Organization = () => {
 
           {/* Banner Section */}
           <div
-            className="w-full rounded-[24px] md:rounded-[32px] p-4 md:p-5 flex flex-col md:flex-row items-center justify-between relative overflow-hidden mb-10 md:mb-12 shadow-sm"
+            className="w-full rounded-[20px] md:rounded-[28px] p-3 md:p-4 flex flex-col md:flex-row items-center justify-between relative overflow-hidden mb-8 md:mb-10"
             style={{
               background: `linear-gradient(to top, ${randomBgColor} 0%, #ffffff 100%)`,
             }}
           >
-            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 w-full z-10 px-1 md:px-2">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 w-full z-10 px-1">
               {/* Shield/Logo Left */}
-              <div className="shrink-0 w-28 md:w-36">
+              <div className="shrink-0 w-24 md:w-32">
                 <img
-                  src="/olive_logo.png"
+                  src={oliveLogo}
                   alt="Olive Logo"
                   className="w-full h-auto drop-shadow-md mix-blend-multiply"
                 />
@@ -144,8 +146,9 @@ const Organization = () => {
                     DOHA, QATAR
                   </span>
                 </div>
-                <h2 className="text-xl md:text-2xl font-bold text-[#4c5421] mb-3 md:mb-4 tracking-tight leading-tight line-clamp-2 max-w-full">
-                  Olive International School
+                <h2 className="text-2xl md:text-3xl font-bold text-[#4c5421] mb-3 tracking-tight leading-tight max-w-full">
+                  Olive International <br />
+                  <span className="text-slate-900">School</span>
                 </h2>
                 <div className="flex flex-row flex-nowrap items-center justify-center md:justify-start gap-2.5 w-full">
                   <button className="px-3.5 md:px-4 py-1.5 md:py-2 rounded-full bg-white text-[10px] md:text-[11px] font-bold text-slate-800 border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer">
@@ -158,10 +161,9 @@ const Organization = () => {
                 </div>
               </div>
 
-              {/* Right Image */}
-              <div className="shrink-0 w-full sm:w-[220px] lg:w-[260px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.08)] border-[3px] border-white/60 bg-white flex items-center justify-center">
+              <div className="shrink-0 w-full sm:w-[200px] lg:w-[240px] flex items-center justify-center">
                 <img
-                  src="/olive_school_building.png"
+                  src={oliveSchoolBuilding}
                   alt="School Building"
                   className="w-full h-auto object-contain block"
                 />
