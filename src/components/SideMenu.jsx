@@ -48,18 +48,22 @@ const SideMenu = () => {
         />
       )}
 
+      {/* Desktop expanded overlay backdrop */}
+      {isExpanded && !isMobileOpen && (
+        <div
+          className="hidden md:block fixed inset-0 z-40"
+          onMouseEnter={() => setIsExpanded(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <div
-        className={`h-[100dvh] border-r border-slate-200 bg-white flex flex-col justify-between z-50 transition-all duration-300 ${
+        className={`h-[100dvh] border-r border-slate-200 bg-white flex flex-col justify-between z-50 transition-all duration-300 fixed left-0 top-0 ${
           isMobileOpen
-            ? "fixed left-0 top-0 translate-x-0 w-[240px] shadow-2xl"
-            : "fixed left-0 top-0 -translate-x-full md:relative md:translate-x-0 md:top-auto md:left-auto"
-        } ${
-          !isMobileOpen
-            ? isExpanded
-              ? "md:w-[240px] md:shadow-none"
-              : "md:w-[75px]"
-            : ""
+            ? "translate-x-0 w-[240px] shadow-2xl"
+            : !isExpanded
+              ? "-translate-x-full md:translate-x-0 md:w-[75px]"
+              : "w-[240px] shadow-2xl md:shadow-xl -translate-x-full md:translate-x-0"
         }`}
         onMouseEnter={() => !isMobileOpen && setIsExpanded(true)}
         onMouseLeave={() => !isMobileOpen && setIsExpanded(false)}

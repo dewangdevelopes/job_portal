@@ -80,7 +80,7 @@ const Organization = () => {
     <div className="flex min-h-[100dvh] bg-[#fdfdfd]">
       <SideMenu />
       {/* Main Content Area */}
-      <div className="max-md:ml-0 md:ml-0 max-md:pt-14 flex-1 flex flex-col items-center transition-all duration-300 w-full overflow-x-hidden min-h-screen">
+      <div className="max-md:ml-0 md:ml-[75px] max-md:pt-14 flex-1 flex flex-col items-center w-full overflow-x-hidden min-h-screen">
         <div className="w-full max-w-[950px] px-4 md:px-8 py-6 md:py-10 animate-in fade-in duration-500 flex flex-col flex-1">
           {/* Top Title/Breadcrumbs */}
           <div className="mb-6 flex items-center gap-3">
