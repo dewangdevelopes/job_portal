@@ -6,6 +6,7 @@ import OliveLanding from "./pages/OliveLanding";
 import ApplicantDashboard from "./pages/ApplicantDashboard";
 import Organization from "./pages/Organization";
 import ApplicationForm from "./pages/ApplicationForm";
+import HRDashboard from "./pages/HRDashboard";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path={ROUTES.APPLICANT} element={<ApplicantDashboard />} />
         <Route path={ROUTES.ORGANIZATION} element={<Organization />} />
         <Route path={ROUTES.APPLICATION} element={<ApplicationForm />} />
+        <Route path={ROUTES.HR_DASHBOARD} element={<HRDashboard />} />
       </Routes>
     </Router>
   );

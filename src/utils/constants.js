@@ -8,4 +8,5 @@ export const ROUTES = {
   APPLICANT: "/applicant",
   ORGANIZATION: "/organization/:id",
   APPLICATION: "/apply",
+  HR_DASHBOARD: "/hr-dashboard",
 };

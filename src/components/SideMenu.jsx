@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { LayoutDashboard, BriefcaseBusiness, LogOut, X } from "lucide-react";
+import {
+  LayoutDashboard,
+  BriefcaseBusiness,
+  LogOut,
+  X,
+  Users,
+} from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../utils/constants";
 import logoSvg from "../assets/logo.svg";
@@ -12,6 +18,7 @@ const SideMenu = () => {
   const navItems = [
     { name: "Dashboard", icon: LayoutDashboard, path: ROUTES.APPLICANT },
     { name: "Open Positions", icon: BriefcaseBusiness, path: "#" },
+    { name: "HR Dashboard", icon: Users, path: ROUTES.HR_DASHBOARD },
   ];
 
   return (
