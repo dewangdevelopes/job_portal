@@ -1,10 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { X, ArrowRight, UserSearch, Building2, Mail, Lock, Eye, EyeOff, ShieldCheck, ArrowLeft, User, Phone, Calendar, Users, ChevronDown, Search, Check } from 'lucide-react';
+import { API_BASE_URL } from '../utils/constants';
+import { toast } from 'react-toastify';
 
 const LoginModal = ({ isOpen, onClose }) => {
     const [view, setView] = useState('role'); // 'role', 'candidate-login', 'candidate-signup', 'candidate-password'
     const [isOtpSent, setIsOtpSent] = useState(false);
+
+    // Signup form fields
+    const [signupName, setSignupName] = useState('');
+    const [signupEmail, setSignupEmail] = useState('');
+    const [signupMobile, setSignupMobile] = useState('');
+    const [signupDob, setSignupDob] = useState('');
+    const [signupLoading, setSignupLoading] = useState(false);
+    const [signupError, setSignupError] = useState('');
+
+    // Login form fields
+    const [loginEmail, setLoginEmail] = useState('');
+    const [loginPassword, setLoginPassword] = useState('');
+    const [loginLoading, setLoginLoading] = useState(false);
 
     // Password visibility and values
     const [showSetPassword, setShowSetPassword] = useState(false);
@@ -14,7 +29,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [forgotPasswordStep, setForgotPasswordStep] = useState('email'); // 'email', 'otp', 'reset'
-    const [otp, setOtp] = useState(['', '', '', '']);
+    const [otp, setOtp] = useState(['', '', '', '', '', '']);
 
     const [countries, setCountries] = useState([]);
 
@@ -98,12 +113,21 @@ const LoginModal = ({ isOpen, onClose }) => {
             setShowConfirmPassword(false);
             setShowLoginPassword(false);
             setForgotPasswordStep('email');
-            setOtp(['', '', '', '']);
+            setOtp(['', '', '', '', '', '']);
             setSelectedCountry({ phonecode: '91', iso3: 'IND', emoji: '🇮🇳' });
             setIsCountryDropdownOpen(false);
             setCountrySearchTerm('');
             setIsGenderDropdownOpen(false);
             setSelectedGender('');
+            setSignupName('');
+            setSignupEmail('');
+            setSignupMobile('');
+            setSignupDob('');
+            setSignupError('');
+            setSignupLoading(false);
+            setLoginEmail('');
+            setLoginPassword('');
+            setLoginLoading(false);
         }
     }, [isOpen]);
 
@@ -121,26 +145,120 @@ const LoginModal = ({ isOpen, onClose }) => {
         setView('candidate-signup');
         setIsOtpSent(false);
     };
-    const handleSendOtp = () => {
-        setIsOtpSent(true);
+    const handleLogin = async () => {
+        setLoginLoading(true);
+        try {
+            const response = await axios.post(
+                `${API_BASE_URL}/job-portal-api/auth/login`,
+                { email: loginEmail, password: loginPassword }
+            );
+            const msg = response?.data?.message || 'Login successful!';
+            toast.success(msg);
+            handleClose();
+        } catch (error) {
+            const msg =
+                error?.response?.data?.message ||
+                error?.message ||
+                'Login failed. Please check your credentials.';
+            toast.error(msg);
+        } finally {
+            setLoginLoading(false);
+        }
     };
-    const handleProceedToPassword = () => {
-        setView('candidate-password');
-        setPassword('');
-        setConfirmPassword('');
-        setPasswordError('');
-        setOtp(['', '', '', '']);
+    const handleSendOtp = async () => {
+        setSignupError('');
+        setSignupLoading(true);
+        try {
+            // Just request an OTP to the provided email — form values are already stored in state
+            const response = await axios.post(
+                `${API_BASE_URL}/job-portal-api/auth/otp/request`,
+                { email: signupEmail }
+            );
+            const msg = response?.data?.message || 'OTP sent successfully!';
+            toast.success(msg);
+            setIsOtpSent(true);
+        } catch (error) {
+            const msg =
+                error?.response?.data?.message ||
+                error?.message ||
+                'Failed to send OTP. Please try again.';
+            setSignupError(msg);
+            toast.error(msg);
+        } finally {
+            setSignupLoading(false);
+        }
+    };
+    const handleProceedToPassword = async () => {
+        setSignupError('');
+        setSignupLoading(true);
+        try {
+            const otpString = otp.join('');
+            const response = await axios.post(
+                `${API_BASE_URL}/job-portal-api/auth/otp/verify`,
+                { email: signupEmail, otp: otpString }
+            );
+            const msg = response?.data?.message || 'OTP verified successfully!';
+            toast.success(msg);
+            // OTP verified — proceed to password step
+            setView('candidate-password');
+            setPassword('');
+            setConfirmPassword('');
+            setPasswordError('');
+            setOtp(['', '', '', '', '', '']);
+        } catch (error) {
+            const msg =
+                error?.response?.data?.message ||
+                error?.message ||
+                'Invalid OTP. Please try again.';
+            setSignupError(msg);
+            toast.error(msg);
+        } finally {
+            setSignupLoading(false);
+        }
     };
 
-    const handleSetPassword = () => {
+    const handleSetPassword = async () => {
         if (password !== confirmPassword) {
             setPasswordError('Passwords do not match');
             return;
         }
         setPasswordError('');
-        // Proceed with final registration logic
-        console.log('Password set successfully');
-        handleClose();
+        setSignupLoading(true);
+        setSignupError('');
+        try {
+            // Format date from yyyy-mm-dd (native date input) to dd-mm-yyyy
+            const formattedDob = signupDob
+                ? signupDob.split('-').reverse().join('-')
+                : '';
+
+            const payload = {
+                name: signupName,
+                email: signupEmail,
+                password: password,
+                roles: ['APPLICANT'],
+                mobileNumber: signupMobile,
+                dateOfBirth: formattedDob,
+                gender: selectedGender,
+                countryCode: selectedCountry.phonecode,
+            };
+
+            const response = await axios.post(
+                `${API_BASE_URL}/job-portal-api/auth/register`,
+                payload
+            );
+            const msg = response?.data?.message || 'Registration successful!';
+            toast.success(msg);
+            handleClose();
+        } catch (error) {
+            const msg =
+                error?.response?.data?.message ||
+                error?.message ||
+                'Registration failed. Please try again.';
+            setPasswordError(msg);
+            toast.error(msg);
+        } finally {
+            setSignupLoading(false);
+        }
     };
 
     const handleForgotPassword = () => {
@@ -164,7 +282,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         setOtp(newOtp);
 
         // Auto-focus next input
-        if (value && index < 3) {
+        if (value && index < 5) {
             const nextInput = document.getElementById(`otp-${step || 'signup'}-${index + 1}`);
             if (nextInput) nextInput.focus();
         }
@@ -283,6 +401,8 @@ const LoginModal = ({ isOpen, onClose }) => {
                                             <input
                                                 type="email"
                                                 placeholder="name@domain.com"
+                                                value={loginEmail}
+                                                onChange={(e) => setLoginEmail(e.target.value)}
                                                 className="w-full h-[40px] pl-11 pr-4 py-2 bg-white border border-slate-200 rounded-2xl text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400"
                                             />
                                         </div>
@@ -297,6 +417,8 @@ const LoginModal = ({ isOpen, onClose }) => {
                                             <input
                                                 type={showLoginPassword ? "text" : "password"}
                                                 placeholder="Enter your password"
+                                                value={loginPassword}
+                                                onChange={(e) => setLoginPassword(e.target.value)}
                                                 className="w-full h-[40px] pl-11 pr-11 py-2 bg-white border border-slate-200 rounded-2xl text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400"
                                             />
                                             <button
@@ -317,8 +439,12 @@ const LoginModal = ({ isOpen, onClose }) => {
                                         </div>
                                     </div>
 
-                                    <button className="w-full py-4 rounded-full bg-[#3b82f6] text-white text-sm font-bold hover:bg-blue-600 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-blue-500/25 mt-2">
-                                        <ShieldCheck size={18} /> Secure Login
+                                    <button
+                                        className="w-full py-4 rounded-full bg-[#3b82f6] text-white text-sm font-bold hover:bg-blue-600 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-blue-500/25 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                                        onClick={handleLogin}
+                                        disabled={loginLoading}
+                                    >
+                                        <ShieldCheck size={18} /> {loginLoading ? 'Logging in...' : 'Secure Login'}
                                     </button>
                                 </div>
 
@@ -369,6 +495,8 @@ const LoginModal = ({ isOpen, onClose }) => {
                                         <input
                                             type="text"
                                             placeholder="Enter your full name"
+                                            value={signupName}
+                                            onChange={(e) => setSignupName(e.target.value)}
                                             className="w-full h-[40px] px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400 shadow-sm"
                                         />
                                     </div>
@@ -446,6 +574,8 @@ const LoginModal = ({ isOpen, onClose }) => {
                                             <input
                                                 type="text"
                                                 placeholder="Enter Mobile Number"
+                                                value={signupMobile}
+                                                onChange={(e) => setSignupMobile(e.target.value)}
                                                 className="flex-1 h-[40px] px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400 shadow-sm"
                                             />
                                         </div>
@@ -460,6 +590,8 @@ const LoginModal = ({ isOpen, onClose }) => {
                                                 </div>
                                                 <input
                                                     type="date"
+                                                    value={signupDob}
+                                                    onChange={(e) => setSignupDob(e.target.value)}
                                                     className="w-full h-[40px] pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors text-slate-700 shadow-sm appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:left-0"
                                                 />
                                             </div>
@@ -517,17 +649,24 @@ const LoginModal = ({ isOpen, onClose }) => {
                                             <input
                                                 type="email"
                                                 placeholder="name@domain.com"
+                                                value={signupEmail}
+                                                onChange={(e) => setSignupEmail(e.target.value)}
                                                 className="w-full h-[40px] pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400 shadow-sm"
                                             />
                                         </div>
                                     </div>
 
+                                    {signupError && (
+                                        <p className="text-xs font-medium text-red-500 ml-1">{signupError}</p>
+                                    )}
+
                                     {!isOtpSent && (
                                         <button
-                                            className="w-full py-3 rounded-xl border border-blue-100 bg-blue-50/50 text-blue-600 text-xs font-bold hover:bg-blue-100 transition-all cursor-pointer"
+                                            className="w-full py-3 rounded-xl border border-blue-100 bg-blue-50/50 text-blue-600 text-xs font-bold hover:bg-blue-100 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                                             onClick={handleSendOtp}
+                                            disabled={signupLoading}
                                         >
-                                            Send OTP
+                                            {signupLoading ? 'Sending...' : 'Send OTP'}
                                         </button>
                                     )}
 
