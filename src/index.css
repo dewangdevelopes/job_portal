@@ -30,12 +30,37 @@ h1 {
   line-height: 1.1;
 }
 
-/* Ensure all native form elements (input, select, textarea, date pickers)
-   render with visible dark text on a white background */
-input,
-select,
-textarea {
-  color: #213547;
-  background-color: #ffffff;
-  color-scheme: light;
+/* Removed default Vite button styles that conflicted with Tailwind */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  /* Removed Vite default anchor hover style */
+
+  /* Removed Vite light mode button styles */
 }
+
+/* Custom Light Scrollbar for Dropdown */
+.custom-light-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 white;
+}
+.custom-light-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background-color: white; /* Force white track */
+}
+.custom-light-scrollbar::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 8px;
+}
+.custom-light-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #e2e8f0;
+  border-radius: 8px;
+}
+.custom-light-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #cbd5e1;
+}
+

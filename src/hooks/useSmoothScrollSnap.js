@@ -1,32 +1,46 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * Custom hook to manage full-screen scroll snapping with configurable easing and duration.
- * Provides a much smoother and controllable experience than native CSS scroll-snap.
+ * Custom hook to manage full-screen scroll snapping on scroll down,
+ * while allowing normal native scrolling on scroll up.
  *
  * @param {Array<React.RefObject>} sectionRefs - Array of refs for each snap section
- * @param {number} scrollDuration - Duration of the scroll animation in ms
+ * @param {number} scrollDuration - Duration of the scroll down animation in ms
  */
-export const useSmoothScrollSnap = (sectionRefs, scrollDuration = 800) => {
+export const useSmoothScrollSnap = (sectionRefs, scrollDuration = 1000) => {
     const [currentSection, setCurrentSection] = useState(0);
     const isScrolling = useRef(false);
     const isCoolingDown = useRef(false);
 
     useEffect(() => {
         const handleWheel = (e) => {
+            // Only apply custom tracking/snapping when scrolling DOWN (deltaY > 0)
+            if (e.deltaY <= 0) {
+                // Determine current section roughly based on scroll position so 
+                // scrolling down later resumes from the right place
+                const scrollY = window.scrollY;
+                let activeIndex = 0;
+                for (let i = 0; i < sectionRefs.length; i++) {
+                    if (sectionRefs[i].current && scrollY >= sectionRefs[i].current.offsetTop - window.innerHeight / 2) {
+                        activeIndex = i;
+                    }
+                }
+                setCurrentSection(activeIndex);
+                return; // Let native scrolling handle the scroll UP
+            }
+
+            // --- Scroll DOWN logic ---
             e.preventDefault();
 
             if (isScrolling.current || isCoolingDown.current) return;
 
-            // Ensure we only trigger on a meaningful, intentional physical scroll.
-            // Small deltas under 5 might just be a trackpad twitch.
+            // Ensure we only trigger on a meaningful, intentional physical scroll
             if (Math.abs(e.deltaY) < 10) return;
 
-            const direction = e.deltaY > 0 ? 1 : -1;
-            let nextSection = currentSection + direction;
+            let nextSection = currentSection + 1;
 
             // Ensure we stay within bounds
-            if (nextSection >= 0 && nextSection < sectionRefs.length) {
+            if (nextSection < sectionRefs.length) {
                 scrollToSection(nextSection);
             }
         };
@@ -60,12 +74,11 @@ export const useSmoothScrollSnap = (sectionRefs, scrollDuration = 800) => {
                         requestAnimationFrame(animation);
                     } else {
                         isScrolling.current = false;
-                        // Add a meaningful cooldown (600ms) after the animation finishes
-                        // before allowing the next scroll to prevent accidental double-skipping.
+                        // Cooldown to prevent accidental double-skipping
                         isCoolingDown.current = true;
                         setTimeout(() => {
                             isCoolingDown.current = false;
-                        }, 600);
+                        }, 500); // slightly reduced cooldown for better responsiveness
                     }
                 };
 
@@ -73,7 +86,7 @@ export const useSmoothScrollSnap = (sectionRefs, scrollDuration = 800) => {
             }
         };
 
-        // Attach wheel event listener with passive: false to allow preventDefault
+        // Attach wheel event listener with passive: false to allow preventDefault for down-scrolls
         window.addEventListener('wheel', handleWheel, { passive: false });
 
         return () => {
